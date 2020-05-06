@@ -16,11 +16,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
- signals:
+signals:
     void signalChanged(int val);
 
 private slots:
-    void onValueChanged(int val); // kdyz zde mam ukazatel tak alt + Enter mi vyvori deklaraci te funkce
+    void zoom(int val); // kdyz zde mam ukazatel tak alt + Enter mi vyvori deklaraci te funkce
 
 private:
     Ui::MainWindow *ui;
