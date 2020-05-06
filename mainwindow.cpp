@@ -4,6 +4,10 @@
 #include <QtWidgets>
 #include <QRect>
 
+int a = 90;
+int b = 90;
+QGraphicsEllipseItem *vehicle;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -32,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     line->setFlag(QGraphicsItem::ItemIsSelectable); //Jde na ni kliknout
 
     //Elipsa + text
-    scene->addEllipse(QRect(90-5,90-5,10,10),QPen(2),QBrush(QColor(11730944)));
+    vehicle = scene->addEllipse(QRect(a-5,b-5,10,10),QPen(QColor(11730944)),QBrush(QColor(11730944)));
     auto text = scene->addText("Ukazka jak to nejezdi");
     text->setTextInteractionFlags(Qt::TextEditorInteraction);
 
@@ -40,12 +44,26 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
     //connect(ui->zoomSlider, SIGNAL(valueChanged(int)), this ,SLOT(zoom(int)));  <---- stejny zapis toho sameho
 
+    //timer
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()),this, SLOT(TimeUpdate()));
+    timer->start(500);
+
+    //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::TimeUpdate()
+{
+    qDebug() << "Update..";
+    vehicle->setRect(a++,b++,10,10);
+
 }
 
 void MainWindow::zoom(int val)
