@@ -5,7 +5,8 @@ Coordinate::Coordinate(QWidget *parent) : QWidget(parent)
 
 }*/
 
-Coordinate::Coordinate(double x, double y){
+Coordinate::Coordinate(double x, double y)
+{
     this->x = x;
     this->y = y;
 }
