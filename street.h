@@ -3,12 +3,22 @@
 
 #include <QObject>
 #include <QWidget>
+#include <coordinate.h>
 
 class Street : public QWidget
 {
-    Q_OBJECT
+//    Q_OBJECT
 public:
-    explicit Street(QWidget *parent = nullptr);
+//    explicit Street(QWidget *parent = nullptr);
+
+    Street();
+    Street(Coordinate startC, Coordinate endC, QString nameC);
+
+private:
+    Coordinate start;
+    Coordinate end;
+    QString name;
+
 
 signals:
 

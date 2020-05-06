@@ -1,26 +1,31 @@
 #include "coordinate.h"
-
-coordinate::coordinate(QWidget *parent) : QWidget(parent)
+/*
+Coordinate::Coordinate(QWidget *parent) : QWidget(parent)
 {
 
+}*/
+
+Coordinate::Coordinate(){
+    x = 0.0;
+    y = 0.0;
 }
 
-void coordinate::setX(double x)
+void Coordinate::setX(double x)
 {
-    coordinates.x = x;
+    this->x = x;
 }
 
-void coordinate::setY(double y)
+void Coordinate::setY(double y)
 {
-    coordinates.y = y;
+    this->y = y;
 }
 
-double coordinate::getX(double x)
+double Coordinate::getX()
 {
-    return coordinates.x;
+    return this->x;
 }
 
-double coordinate::getY(double y)
+double Coordinate::getY()
 {
-    return coordinates.y;
+    return this->y;
 }

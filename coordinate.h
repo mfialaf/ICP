@@ -1,9 +1,9 @@
 #ifndef COORDINATE_H
 #define COORDINATE_H
 
-#include <QObject>
-#include <QWidget>
-
+//#include <QObject>
+//#include <QWidget>
+/*
 struct Coordinates{
     double x;
     double y;
@@ -12,23 +12,28 @@ struct Coordinates{
         y=0.0;
     }
 
-};
+};*/
 
-class coordinate : public QWidget
+class Coordinate
 {
-    Q_OBJECT
+//    Q_OBJECT
 public:
-    explicit coordinate(QWidget *parent = nullptr);
+    //explicit Coordinate(QWidget *parent = nullptr);
+
+    Coordinate();
     void setX (double x);
     void setY (double y);
-    double getX (double x);
-    double getY (double y);
+    double getX ();
+    double getY ();
+    //Coordinates coordinates;
 
 private:
-    Coordinates coordinates;
+    //Coordinates coordinates;
+    double x;
+    double y;
 
 
-signals:
+//signals:
 
 };
 
