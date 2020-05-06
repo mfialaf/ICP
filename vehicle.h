@@ -1,16 +1,19 @@
 #include <coordinate.h>
 #include <path.h>
-//#include <QGraphicsEllipseItem>
 #include <QtWidgets>
+#include <QGraphicsScene>
 
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
 
-class Vehicle
+class Vehicle : public QGraphicsScene
 {
+
+    Q_OBJECT
 public:
-    Vehicle();
+    explicit Vehicle(QObject *parent = nullptr);
+
     Vehicle(Coordinate position, double speed, Path path);
 
 private:
@@ -18,7 +21,10 @@ private:
     double speed;
     double distance = 0;
     Path path;
-//    QList<QGraphicsEllipseItem> gui;
+    QGraphicsEllipseItem *mark;
+
+signals:
+
 };
 
 
