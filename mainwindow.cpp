@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QtWidgets>
+#include <QRect>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,12 +27,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene);
 
     //Zelena cara
-    auto line =  scene->addLine(100, 100, 250,200); //vytvori objekt, a vrati zaroven ukazatel na nej
-    line->setPen(QPen(QColor(QString("Green")),3));
+    auto line =  scene->addLine(90, 90, 250,200); //vytvori objekt, a vrati zaroven ukazatel na nej
+    line->setPen(QPen(QColor(QString("Green")),1));
     line->setFlag(QGraphicsItem::ItemIsSelectable); //Jde na ni kliknout
 
     //Elipsa + text
-    scene->addEllipse(rect());
+    scene->addEllipse(QRect(90-5,90-5,10,10),QPen(2),QBrush(QColor(11730944)));
     auto text = scene->addText("Ukazka jak to nejezdi");
     text->setTextInteractionFlags(Qt::TextEditorInteraction);
 
