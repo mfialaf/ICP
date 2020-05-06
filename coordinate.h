@@ -20,7 +20,6 @@ class Coordinate
 public:
     //explicit Coordinate(QWidget *parent = nullptr);
 
-    Coordinate(double x, double y);
     Coordinate();
     Coordinate(double x, double y);
     void setX (double x);
