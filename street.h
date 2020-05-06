@@ -13,6 +13,7 @@ public:
 
     Street();
     Street(Coordinate startC, Coordinate endC, QString nameC);
+    Coordinate getStart();
 
 private:
     Coordinate start;
