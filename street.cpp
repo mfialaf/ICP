@@ -12,3 +12,7 @@ Street::Street(Coordinate startC, Coordinate endC, QString nameC){
     end = endC;
     name = nameC;
 }
+
+Coordinate Street::getStart(){
+    return start;
+}
