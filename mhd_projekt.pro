@@ -16,13 +16,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    coordinate.cpp \
     hokuspokus.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    street.cpp \
+    vehicle.cpp
 
 HEADERS += \
+    coordinate.h \
     hokuspokus.h \
-    mainwindow.h
+    mainwindow.h \
+    street.h \
+    vehicle.h
 
 FORMS += \
     mainwindow.ui

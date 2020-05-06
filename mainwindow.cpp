@@ -15,9 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
 
         //1. arametr je nazev objektu do ktereho se mi dany prvek v aktualni iteraci ulozi
         //
-    //for (const auto &item: list;) {
+    QVector<int> list{1,2,3,5,8};
 
-    //}
+    for (const auto &item: list) {
+        qDebug() << item;
+    }
 
                                     // Vycetl jsem z bazove tridy, je potreba napsat typ
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(onValueChanged(int)));
