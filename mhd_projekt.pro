@@ -17,16 +17,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     coordinate.cpp \
-    hokuspokus.cpp \
     main.cpp \
     mainwindow.cpp \
+    path.cpp \
     street.cpp \
     vehicle.cpp
 
 HEADERS += \
     coordinate.h \
-    hokuspokus.h \
     mainwindow.h \
+    path.h \
     street.h \
     vehicle.h
 
