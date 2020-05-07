@@ -58,13 +58,15 @@ void JsonRead::ReadJson()
 
          QJsonValue interval = pathAllO.value(QString("interval"));
          QJsonValue vehicleCount = pathAllO.value(QString("vehicleCount"));
+         QJsonValue linkName = pathAllO.value(QString("linkName"));
+         QJsonValue speed = pathAllO.value(QString("speed"));
 
          QJsonArray streetNamsesArray = pathAllO["streetNames"].toArray();
          for(int j = 0; j < streetNamsesArray.size(); j++)
          {
                 qDebug() << "JmenaUlic: " << streetNamsesArray[j].toString();
          }
-         qDebug() << "interval + vehicleCount" << interval.toString().toDouble() << vehicleCount.toString().toDouble();
+         qDebug() << "interval + vehicleCount + linkName + speed" << interval.toString().toDouble() << vehicleCount.toString().toDouble() << linkName.toString().toDouble() << speed.toString().toDouble();
     }
 
 
