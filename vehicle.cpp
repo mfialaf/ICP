@@ -32,6 +32,5 @@ void Vehicle::vehUpdate(){
     }
     Coordinate coords = path.getCoordinateByDistance(distance);
     vehMove(coords);
-    qDebug() << "X coord: " << coords.getX() << "Y coord: " << coords.getY();
     position = coords;
 }

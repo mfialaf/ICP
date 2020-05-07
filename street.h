@@ -1,15 +1,12 @@
 #ifndef STREET_H
 #define STREET_H
 
-#include <QObject>
-#include <QWidget>
 #include <coordinate.h>
+#include <QString>
 
-class Street : public QWidget
+class Street
 {
-//    Q_OBJECT
 public:
-//    explicit Street(QWidget *parent = nullptr);
 
     Street();
     Street(Coordinate startC, Coordinate endC, QString nameC);
@@ -19,9 +16,6 @@ private:
     Coordinate start;
     Coordinate end;
     QString name;
-
-
-signals:
 
 };
 

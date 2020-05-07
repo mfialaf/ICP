@@ -13,7 +13,6 @@ int a = 90;
 int b = 90;
 int a2 = 90;
 int b2 = 90;
-int kamienkovaPromennaNaZmenuCasu = 1;
 QGraphicsEllipseItem *vehicle;
 QGraphicsEllipseItem *vehicle2;
 QVector<Vehicle> vehicleVektor;
@@ -83,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
     //connect(ui->zoomSlider, SIGNAL(valueChanged(int)), this ,SLOT(zoom(int)));  <---- stejny zapis toho sameho
 
-    StartTime(20);
+    StartTime();
 
     //qDebug() << coord.getX() << coord.getY() << street.getStart().getX() << street.getStart().getY();
 
@@ -109,11 +108,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::StartTime(int scale)
+void MainWindow::StartTime()
 {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(TimeUpdate()));
-    timer->start(1000/scale);
+    timer->start(1000);
 }
 
 void MainWindow::TimeUpdate()
@@ -135,7 +134,7 @@ void MainWindow::zoom(int val)
 
 void MainWindow::timeChanged(int val)
 {
-    kamienkovaPromennaNaZmenuCasu = val;
-    qDebug() << "hodnota" << kamienkovaPromennaNaZmenuCasu;
+    timer->stop();
+    timer->start(1000/val);
 }
 
