@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     coordinate.cpp \
+    jsonread.cpp \
     main.cpp \
     mainwindow.cpp \
     path.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     coordinate.h \
+    jsonread.h \
     mainwindow.h \
     path.h \
     stop.h \
