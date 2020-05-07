@@ -1,9 +1,6 @@
 #include "stop.h"
 
-Stop::Stop()
-{
-
-}
+Stop::Stop(){}
 
 Stop::Stop(QString name, Coordinate position)
 {
@@ -14,3 +11,8 @@ Stop::Stop(QString name, Coordinate position)
 //void Stop::setStreet(Street street){
 //    this->street = street;
 //}
+
+Coordinate Stop::getPosition(){
+    return position;
+}
+

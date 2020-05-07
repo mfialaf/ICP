@@ -10,12 +10,13 @@ class Stop
 public:
     Stop();
     Stop(QString name, Coordinate position);
-    void setStreet(Street street);
+//    void setStreet(Street street);
+    Coordinate getPosition();
 
 private:
     QString name;
     Coordinate position;
-    Street street;
+//    Street street;
 };
 
 #endif // STOP_H
