@@ -1,0 +1,40 @@
+{
+"street":
+[
+    {
+        "begin":    { "x": "10.0",  "y": "10.0" },
+        "end":      { "x": "100",   "y": "100"  },
+    	"name": "Salamova"
+     },
+     {
+    	"begin":    { "x": "50",    "y": "50"   },
+        "end":      { "x": "500",   "y": "500"  },
+    	"name": "Janova"
+     }
+ ],
+"stop":
+[
+    {
+    	"position": {  "x": "120.0",   "y": "10.4"},
+    	"name": "prcalova"
+	},
+    {
+        "position": {  "x": "8.0",     "y": "110.4"},
+        "name": "hrnkova"
+    }
+],
+"path":
+[
+    {
+        "interval": "2",
+        "vehicleCount": "10",
+        "streetNames": ["Susilova", "Hrncirska", "Ondrasova"]
+    },
+    {
+        "interval": "8",
+        "vehicleCount": "15",
+        "streetNames": ["Sussssilova", "Hrncsssssirska", "Ondsssrasova"]
+    }
+]
+}
+
