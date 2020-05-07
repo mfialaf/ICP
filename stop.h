@@ -2,7 +2,6 @@
 #define STOP_H
 
 #include <QString>
-#include <street.h>
 #include <coordinate.h>
 
 class Stop
