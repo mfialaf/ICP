@@ -6,6 +6,7 @@
 #include <coordinate.h>
 #include <street.h>
 #include <path.h>
+#include <vehicle.h>
 
 int a = 90;
 int b = 90;
@@ -35,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
 */
 
     // Vykresleni sceny
-    auto *scene = new QGraphicsScene(ui->graphicsView);
+    auto *scene = new Vehicle(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
 //Zelena cara
