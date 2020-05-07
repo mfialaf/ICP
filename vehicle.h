@@ -18,6 +18,7 @@ public:
     void vehMove(Coordinate coordinate);
     void vehUpdate();
     QGraphicsEllipseItem *visual;
+    bool direction = true; //promenna pro zpetnou cestu, pri false vime ze jede na zpatek
 
 private:
     Coordinate position;

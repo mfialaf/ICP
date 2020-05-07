@@ -19,7 +19,7 @@ double Path::getDistanceOfCoordinates(Coordinate a, Coordinate b)
     return sqrt( pow((a.getX() - b.getX()),2) + pow((a.getY() - b.getY()),2));
 }
 
-Coordinate Path::getCoordinateByDistance(double distance)
+Coordinate Path::getCoordinateByDistance(double distance, bool direction)
 {
     bool flag = true;
     double length = 0;
@@ -27,20 +27,40 @@ Coordinate Path::getCoordinateByDistance(double distance)
     Coordinate a;
     Coordinate b;
 
+    if(direction){
+        QList<Coordinate>::iterator iterator = pathList.begin();
+        for(int i = 0; i < pathList.size()-1; ++i)
+        {
+            flag = false;
+            a = *iterator;
+            b = *(++iterator);
 
-    QList<Coordinate>::iterator iterator = pathList.begin();
-    for(int i = 0; i < pathList.size()-1; ++i)
-    {
-        flag = false;
-        a = *iterator;
-        b = *(++iterator);
+            if(length + getDistanceOfCoordinates(a,b) >= distance){
+                break;
+            }
 
-        if(length + getDistanceOfCoordinates(a,b) >= distance){
-            break;
+            length += getDistanceOfCoordinates(a,b);
         }
-
-        length += getDistanceOfCoordinates(a,b);
     }
+    else
+    {
+        QList<Coordinate>::iterator iterator = pathList.end();
+        iterator--;
+        for(int i = 0; i < pathList.size()-1; ++i)
+        {
+            qDebug() << "iterator = "<< i;
+            flag = false;
+            a = *iterator;
+            b = *(--iterator);
+
+            if(length + getDistanceOfCoordinates(a,b) >= distance){
+                break;
+            }
+
+            length += getDistanceOfCoordinates(a,b);
+        }
+    }
+
 
     // Vyresit konec cesty
     if(flag)

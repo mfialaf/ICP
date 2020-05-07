@@ -28,9 +28,13 @@ void Vehicle::vehUpdate(){
     distance+=speed;
     if(distance > path.getPathValue())
     {
-        return;
+        distance = 0;
+        if(direction)
+            direction = false;
+        else
+            direction = true;
     }
-    Coordinate coords = path.getCoordinateByDistance(distance);
+    Coordinate coords = path.getCoordinateByDistance(distance, direction);
     vehMove(coords);
     position = coords;
 }

@@ -75,8 +75,8 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addLine(street.getStart().getX(),street.getStart().getX(),coord2.getX(),coord2.getY());
     scene->addLine(coord2.getX(),coord2.getY(),coord3.getX(),coord3.getY());
 
-    auto text = scene->addText("Ukazka jak to jezdi");
-    text->setTextInteractionFlags(Qt::TextEditorInteraction);
+//    auto text = scene->addText("Ukazka jak to jezdi");
+//    text->setTextInteractionFlags(Qt::TextEditorInteraction);
 
     // Co porpojuju, jakej to am signal(F1), ------ , na co to napojuju
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);

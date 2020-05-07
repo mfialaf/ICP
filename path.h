@@ -11,7 +11,7 @@ public:
     Path(QList<Coordinate> pathList);
 
     double getDistanceOfCoordinates(Coordinate a, Coordinate b);
-    Coordinate getCoordinateByDistance (double distance);
+    Coordinate getCoordinateByDistance (double distance, bool direction);
     double getPathValue();
 
 
