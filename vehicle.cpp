@@ -8,8 +8,8 @@ Vehicle::Vehicle()
 
 Vehicle::Vehicle(Coordinate position, double speed, Path path)
 {
-    if(speed>20)
-        speed = 20;
+    if(speed>90)
+        speed = 90;
 
     this->speed = speed;
     this->position = position;
@@ -29,7 +29,7 @@ void Vehicle::vehMove(Coordinate coordinate){
 
 void Vehicle::vehUpdate(){
     //if(stop == true) if(stopWaiter == 10) stop == false stopWaiter = 0 else stopWaiter++ return
-    distance+=speed/20;
+    distance+=speed/150;
     if(distance > path.getPathValue())
     {
         distance = 0;

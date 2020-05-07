@@ -88,9 +88,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     StartTime();
 
-    vehicleVector.append(Vehicle(Coordinate(136,89), 10, path));
+    vehicleVector.append(Vehicle(Coordinate(136,89), 60, path));
     vehicleVector.append(Vehicle(Coordinate(534,97), 50, path1));
-    vehicleVector.append(Vehicle(Coordinate(681,499), 20, path2));
+    vehicleVector.append(Vehicle(Coordinate(681,499), 70, path2));
 
     scene->addItem(vehicleVector[0].getEllipse());
 
@@ -164,20 +164,29 @@ void MainWindow::StartTime()
 }
 
 QString MainWindow::TimeSetter(){
-    if(seconds == 60)
+    if(seconds == 59)
     {
-        if(minutes == 60){
-            if(hours == 23 && minutes == 60)
+        if(minutes == 59){
+            if(hours == 23 && minutes == 59)
             {
                 hours = 0;
+                minutes = 0;
+                seconds = 0;
             }
-            hours++;
-            minutes = 0;
+            else{
+                hours++;
+                minutes = 0;
+                seconds = 0;
+            }
         }
-        minutes++;
-        seconds=0;
+        else{
+            minutes++;
+            seconds=0;
+        }
     }
-    seconds++;
+    else{
+        seconds++;
+    }
     QString time = "<- ZOOM | ";
     if(hours < 10){
         time.append("0");
