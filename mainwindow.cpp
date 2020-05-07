@@ -13,6 +13,7 @@ int a = 90;
 int b = 90;
 int a2 = 90;
 int b2 = 90;
+int kamienkovaPromennaNaZmenuCasu = 1;
 QGraphicsEllipseItem *vehicle;
 QGraphicsEllipseItem *vehicle2;
 QVector<Vehicle> vehicleVektor;
@@ -99,6 +100,8 @@ MainWindow::MainWindow(QWidget *parent)
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
+    connect(ui->timeSlider, &QSlider::valueChanged, this, &MainWindow::timeChanged);
+
 }
 
 MainWindow::~MainWindow()
@@ -128,5 +131,11 @@ void MainWindow::zoom(int val)
     auto originalMatice =  ui->graphicsView->transform(); //vrati transformaci matice
     qreal scale = val / 10.0;
     ui->graphicsView->setTransform(QTransform(scale, originalMatice.m12(), originalMatice.m21(), scale, originalMatice.dx(), originalMatice.dy()));
+}
+
+void MainWindow::timeChanged(int val)
+{
+    kamienkovaPromennaNaZmenuCasu = val;
+    qDebug() << "hodnota" << kamienkovaPromennaNaZmenuCasu;
 }
 

@@ -26,7 +26,7 @@ public slots:
 
 private slots:
     void zoom(int val); // kdyz zde mam ukazatel tak alt + Enter mi vyvori deklaraci te funkce
-
+    void timeChanged (int val);
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
