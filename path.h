@@ -17,6 +17,7 @@ public:
 
 private:
     QList<Coordinate> pathList;
+    QVector<Coordinate> stopList;
 };
 
 #endif // PATH_H

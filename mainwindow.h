@@ -18,6 +18,7 @@ public:
     ~MainWindow();
     void StartTime();
     QString TimeSetter();
+    void AddingStopIntoStreet();
 
 signals:
     void signalChanged(int val);

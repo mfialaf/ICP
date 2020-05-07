@@ -25,28 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-  //  QLabel *label = new QLabel(this); //this rika ze parent je to MainWindow
-                                       // o delete se postara MainWindow (ten rodic)
-   // label->setText("aohj");
-
-   //1. arametr je nazev objektu do ktereho se mi dany prvek v aktualni iteraci ulozi
-   // QVector<int> list{1,2,3,5,8};
-
-   /* for (const auto &item: list) {
-        qDebug() << item;
-    }
-*/
-
     // Vykresleni sceny
     auto *scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
-//Zelena cara
-//    auto line =  scene->addLine(90, 90, 250,200); //vytvori objekt, a vrati zaroven ukazatel na nej
-//    line->setPen(QPen(QColor(QString("Green")),1));
-//    line->setFlag(QGraphicsItem::ItemIsSelectable); //Jde na ni kliknout
-
-    //Elipsa + text
     streetVector.append(Street(Coordinate(136,89), Coordinate(534,97), "street1"));
     streetVector.append(Street(Coordinate(534,97), Coordinate(140,418), "street2"));
     streetVector.append(Street(Coordinate(140,418), Coordinate(681,499), "street3"));
@@ -78,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent)
     stopVector.append(Stop("stop5", Coordinate(189.434272, 425.401434)));
     stopVector.append(Stop("stop6", Coordinate(443.912037, 463.502542)));
 
+    AddingStopIntoStreet();
+
     scene->addLine(streetVector[0].getStart().getX(),streetVector[0].getStart().getY(),streetVector[0].getEnd().getX(),streetVector[0].getEnd().getY());
     scene->addLine(streetVector[1].getStart().getX(),streetVector[1].getStart().getY(),streetVector[1].getEnd().getX(),streetVector[1].getEnd().getY());
     scene->addLine(streetVector[2].getStart().getX(),streetVector[2].getStart().getY(),streetVector[2].getEnd().getX(),streetVector[2].getEnd().getY());
@@ -89,18 +73,10 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addEllipse(QRect(stopVector[4].getPosition().getX()-4, stopVector[4].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
     scene->addEllipse(QRect(stopVector[5].getPosition().getX()-4, stopVector[5].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
 
-//    auto text = scene->addText("Ukazka jak to jezdi");
-//    text->setTextInteractionFlags(Qt::TextEditorInteraction);
-
     // Co porpojuju, jakej to am signal(F1), ------ , na co to napojuju
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
-    //connect(ui->zoomSlider, SIGNAL(valueChanged(int)), this ,SLOT(zoom(int)));  <---- stejny zapis toho sameho
 
     StartTime();
-
-
-    //qDebug() << coord.getX() << coord.getY() << street.getStart().getX() << street.getStart().getY();
-
 
     vehicleVector.append(Vehicle(Coordinate(136,89), 10, path));
     vehicleVector.append(Vehicle(Coordinate(534,97), 50, path1));
@@ -111,11 +87,31 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addItem(vehicleVector[1].getEllipse());
 
     scene->addItem(vehicleVector[2].getEllipse());
+
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
     connect(ui->timeSlider, &QSlider::valueChanged, this, &MainWindow::timeChanged);
 
+}
+
+void MainWindow::AddingStopIntoStreet(){
+    double m;
+    double x;
+    double y;
+    for(int i = 0; i < streetVector.size(); i++){
+        for(int j = 0; j<stopVector.size(); j++){
+            m = (streetVector[i].getStart().getY() - streetVector[i].getEnd().getY())/(streetVector[i].getStart().getX() - streetVector[i].getEnd().getX());
+            x = m*(stopVector[j].getPosition().getX()-streetVector[i].getStart().getX());
+            y = stopVector[j].getPosition().getY()-streetVector[i].getStart().getY();
+            x = round(x*100)/100;
+            y = round(y*100)/100;
+            if(x == y)
+            {
+                streetVector[i].insertStop(stopVector[j]);
+            }
+        }
+    }
 }
 
 MainWindow::~MainWindow()

@@ -15,6 +15,7 @@ public:
     Coordinate getStart();
     Coordinate getEnd();
     void insertStop(Stop stop);
+    void writeList();
 
 private:
     Coordinate start;

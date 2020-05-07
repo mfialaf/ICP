@@ -1,4 +1,5 @@
 #include "street.h"
+#include <QDebug>
 
 Street::Street(){}
 
@@ -20,5 +21,10 @@ void Street::insertStop(Stop stop){
     stopList.append(stop.getPosition());
 }
 
-
+void Street::writeList(){
+    qDebug() << name << ": ";
+    for(int i = 0; i<stopList.size(); i++){
+        qDebug() << stopList[i].getX() << stopList[i].getY();
+    }
+}
 //pri pridavani zastavek do path, vypocitam vzdalenost zastavky od startu a podle toho vim kterou zastavku mam pridat jako prvni (pouze pri vice zastavek)
