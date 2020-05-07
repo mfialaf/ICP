@@ -48,7 +48,6 @@ Coordinate Path::getCoordinateByDistance(double distance, bool direction)
         iterator--;
         for(int i = 0; i < pathList.size()-1; ++i)
         {
-            qDebug() << "iterator = "<< i;
             flag = false;
             a = *iterator;
             b = *(--iterator);

@@ -17,6 +17,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void StartTime();
+    QString TimeSetter();
 
 signals:
     void signalChanged(int val);

@@ -9,12 +9,10 @@
 #include <vehicle.h>
 #include <QGraphicsItem>
 
-int a = 90;
-int b = 90;
-int a2 = 90;
-int b2 = 90;
-QGraphicsEllipseItem *vehicle;
-QGraphicsEllipseItem *vehicle2;
+int seconds = 0;
+int minutes = 0;
+int hours = 0;
+int timeupdate = 0;
 QVector<Vehicle> vehicleVektor;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -84,12 +82,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     StartTime();
 
+
     //qDebug() << coord.getX() << coord.getY() << street.getStart().getX() << street.getStart().getY();
 
 
-    vehicleVektor.append(Vehicle(coord, 3, path));
-    vehicleVektor.append(Vehicle(coord2, 3, path1));
-    vehicleVektor.append(Vehicle(coord3, 3, path2));
+    vehicleVektor.append(Vehicle(coord, 10, path));
+    vehicleVektor.append(Vehicle(coord2, 50, path1));
+    vehicleVektor.append(Vehicle(coord3, 20, path2));
 
     scene->addItem(vehicleVektor[0].getEllipse());
 
@@ -108,16 +107,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::StartTime()
-{
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()),this, SLOT(TimeUpdate()));
-    timer->start(1000);
-}
-
 void MainWindow::TimeUpdate()
 {
-    //qDebug() << "Update..";
+    if(timeupdate == 20){
+        ui->time->setText(TimeSetter());
+        timeupdate = 0;
+    }
+    else{
+        timeupdate++;
+    }
+
     vehicleVektor[0].vehUpdate();
     vehicleVektor[1].vehUpdate();
     vehicleVektor[2].vehUpdate();
@@ -125,16 +124,67 @@ void MainWindow::TimeUpdate()
 
 }
 
+void MainWindow::timeChanged(int val)
+{
+    timer->stop();
+    timer->start(50/val);
+}
+
+void MainWindow::StartTime()
+{
+    ui->time->setText("<- ZOOM | 00:00:00 | SPEED ->");
+    ui->time->setAlignment(Qt::AlignCenter);
+    QFont Font("Courier New", 12);
+    ui->time->setFont(Font);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()),this, SLOT(TimeUpdate()));
+    timer->start(50);
+}
+
+QString MainWindow::TimeSetter(){
+    if(seconds == 60)
+    {
+        if(minutes == 60){
+            if(hours == 23 && minutes == 60)
+            {
+                hours = 0;
+            }
+            hours++;
+            minutes = 0;
+        }
+        minutes++;
+        seconds=0;
+    }
+    seconds++;
+    QString time = "<- ZOOM | ";
+    if(hours < 10){
+        time.append("0");
+        time.append(QString::number(hours));
+    }
+    else
+        time.append(QString::number(hours));
+    time.append(":");
+    if(minutes < 10){
+        time.append("0");
+        time.append(QString::number(minutes));
+    }
+    else
+        time.append(QString::number(minutes));
+    time.append(":");
+    if(seconds < 10){
+        time.append("0");
+        time.append(QString::number(seconds));
+    }
+    else
+        time.append(QString::number(seconds));
+    time.append(" | SPEED ->");
+    return time;
+}
+
 void MainWindow::zoom(int val)
 {
     auto originalMatice =  ui->graphicsView->transform(); //vrati transformaci matice
     qreal scale = val / 10.0;
     ui->graphicsView->setTransform(QTransform(scale, originalMatice.m12(), originalMatice.m21(), scale, originalMatice.dx(), originalMatice.dy()));
-}
-
-void MainWindow::timeChanged(int val)
-{
-    timer->stop();
-    timer->start(1000/val);
 }
 

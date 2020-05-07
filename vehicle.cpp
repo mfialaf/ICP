@@ -8,8 +8,11 @@ Vehicle::Vehicle()
 
 Vehicle::Vehicle(Coordinate position, double speed, Path path)
 {
-    this->position = position;
+    if(speed>20)
+        speed = 20;
+
     this->speed = speed;
+    this->position = position;
     this->path = path;
     this->visual = new QGraphicsEllipseItem ();
     this->visual->setRect(position.getX()-5, position.getY()-5, 10, 10);
@@ -25,7 +28,7 @@ void Vehicle::vehMove(Coordinate coordinate){
 }
 
 void Vehicle::vehUpdate(){
-    distance+=speed;
+    distance+=speed/20;
     if(distance > path.getPathValue())
     {
         distance = 0;
