@@ -9,6 +9,7 @@
 #include <vehicle.h>
 #include <stop.h>
 #include <QGraphicsItem>
+#include <jsonread.h>
 
 int seconds = 0;
 int minutes = 0;
@@ -25,13 +26,22 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
+
+    //Marin JsonRead
+    JsonRead file;
+    file.ReadJson();
+
+
+
+
     // Vykresleni sceny
     auto *scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
-    streetVector.append(Street(Coordinate(136,89), Coordinate(534,97), "street1"));
-    streetVector.append(Street(Coordinate(534,97), Coordinate(140,418), "street2"));
-    streetVector.append(Street(Coordinate(140,418), Coordinate(681,499), "street3"));
+    streetVector.append(Street("street1", Coordinate(136,89), Coordinate(534,97)));
+    streetVector.append(Street("street2", Coordinate(534,97), Coordinate(140,418)));
+    streetVector.append(Street("street3", Coordinate(140,418), Coordinate(681,499)));
 
     QList<Coordinate> insertData;
     QList<Coordinate> insertData1;

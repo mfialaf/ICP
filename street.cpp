@@ -3,7 +3,7 @@
 
 Street::Street(){}
 
-Street::Street(Coordinate start, Coordinate end, QString name){
+Street::Street(QString name, Coordinate start, Coordinate end){
     this->start = start;
     this->end = end;
     this->name = name;

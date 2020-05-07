@@ -11,7 +11,7 @@ class Street
 public:
 
     Street();
-    Street(Coordinate start, Coordinate end, QString name);
+    Street(QString name, Coordinate start, Coordinate end);
     Coordinate getStart();
     Coordinate getEnd();
     void insertStop(Stop stop);
