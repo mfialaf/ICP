@@ -7,10 +7,23 @@ JsonRead::JsonRead()
 void JsonRead::ReadJson()
 {
 
+//    QDir dir = dir.currentPath();
+//    qDebug() << dir;
+//   //QString srt = dir.toString();
+//    QFileInfo fi(dir, "inputFile.json");
+//    QString canonical = fi.absoluteFilePath();
+
+//    qDebug() << "cesta" << canonical;
+//    canonical.replace("build_mhd_projekt","mhd_projekt");
+//    qDebug() << "cesta" << canonical;
+
     QString val;
-    QFile file("/home/mrfal/SKOLA/ICP/mhd_projekt/inputFile.json");
-   //file.setFileName("./inputFile.json");
-    if (!file.exists()) qDebug() << "Kokotsky soubor se neotevrel";
+    QFile file;
+    file.setFileName("../inputFile.json");
+    if (!file.exists())
+    {
+        qDebug() << "Kokotsky soubor se neotevrel";
+    }
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();
