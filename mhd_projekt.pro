@@ -20,6 +20,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     path.cpp \
+    stop.cpp \
     street.cpp \
     vehicle.cpp
 
@@ -27,6 +28,7 @@ HEADERS += \
     coordinate.h \
     mainwindow.h \
     path.h \
+    stop.h \
     street.h \
     vehicle.h
 

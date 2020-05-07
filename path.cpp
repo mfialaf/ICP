@@ -21,16 +21,17 @@ double Path::getDistanceOfCoordinates(Coordinate a, Coordinate b)
 
 Coordinate Path::getCoordinateByDistance(double distance)
 {
+    bool flag = true;
     double length = 0;
 
     Coordinate a;
     Coordinate b;
-    qDebug() << a.getX();
 
 
     QList<Coordinate>::iterator iterator = pathList.begin();
     for(int i = 0; i < pathList.size()-1; ++i)
     {
+        flag = false;
         a = *iterator;
         b = *(++iterator);
 
@@ -42,7 +43,7 @@ Coordinate Path::getCoordinateByDistance(double distance)
     }
 
     // Vyresit konec cesty
-    if(length == 0)
+    if(flag)
     {
         Coordinate nemacestu;
         return nemacestu;
