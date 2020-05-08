@@ -44,25 +44,25 @@ MainWindow::MainWindow(QWidget *parent)
 //    streetVector.append(Street("street2", Coordinate(534,97), Coordinate(140,418)));
 //    streetVector.append(Street("street3", Coordinate(140,418), Coordinate(681,499)));
 
-    QList<Coordinate> insertData;
-    QList<Coordinate> insertData1;
-    QList<Coordinate> insertData2;
+//    QList<Coordinate> insertData;
+//    QList<Coordinate> insertData1;
+//    QList<Coordinate> insertData2;
 
-    insertData.append(Coordinate(136,89));
-    insertData.append(Coordinate(534,97));
-    insertData.append(Coordinate(140,418));
+//    insertData.append(Coordinate(136,89));
+//    insertData.append(Coordinate(534,97));
+//    insertData.append(Coordinate(140,418));
 
-    insertData1.append(Coordinate(534,97));
-    insertData1.append(Coordinate(136,89));
+//    insertData1.append(Coordinate(534,97));
+//    insertData1.append(Coordinate(136,89));
 
-    insertData2.append(Coordinate(681,499));
-    insertData2.append(Coordinate(140,418));
-    insertData2.append(Coordinate(534,97));
-    insertData2.append(Coordinate(136,89));
+//    insertData2.append(Coordinate(681,499));
+//    insertData2.append(Coordinate(140,418));
+//    insertData2.append(Coordinate(534,97));
+//    insertData2.append(Coordinate(136,89));
 
-    Path path(insertData);
-    Path path1(insertData1);
-    Path path2(insertData2);
+//    Path path(insertData);
+//    Path path1(insertData1);
+//    Path path2(insertData2);
 
 //    stopVector.append(Stop("stop1", Coordinate(214.576557, 90.579428)));
 //    stopVector.append(Stop("stop2", Coordinate(454.799053, 95.408021)));
@@ -95,15 +95,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     StartTime();
 
-    vehicleVector.append(Vehicle(Coordinate(136,89), 60, path));
-    vehicleVector.append(Vehicle(Coordinate(534,97), 50, path1));
-    vehicleVector.append(Vehicle(Coordinate(681,499), 70, path2));
+    vehicleVector.append(Vehicle(pathVector[0].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[0]));
+    vehicleVector.append(Vehicle(pathVector[1].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[1]));
 
     scene->addItem(vehicleVector[0].getEllipse());
 
     scene->addItem(vehicleVector[1].getEllipse());
 
-    scene->addItem(vehicleVector[2].getEllipse());
+    //scene->addItem(vehicleVector[2].getEllipse());
 
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
@@ -167,7 +166,7 @@ void MainWindow::TimeUpdate()
 
     vehicleVector[0].vehUpdate();
     vehicleVector[1].vehUpdate();
-    vehicleVector[2].vehUpdate();
+    //vehicleVector[2].vehUpdate();
 
 
 }

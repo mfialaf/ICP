@@ -18,6 +18,8 @@ public:
     double getPathValue();
     bool stopSameAsPosition(Coordinate coordinate);
     void setStreetsAndStops(QVector<Street> streetVector);
+    Coordinate pathGetStart();
+    double pathGetSpeed();
 
 private:
     QList<Coordinate> pathList;

@@ -14,6 +14,14 @@ Path::Path(QList<Coordinate> pathList)
     this->pathList = pathList;
 }
 
+Coordinate Path::pathGetStart(){
+    return *pathList.begin();
+}
+
+double Path::pathGetSpeed(){
+    return speed;
+}
+
 Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval){
     this->streetNames = streetNames;
     this->speed = speed;
