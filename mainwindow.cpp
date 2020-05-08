@@ -73,8 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     AddingStopIntoStreet();
     setPaths();
-    setSceneStreet(streetVector,scene);
-    setSceneStop(stopVector,scene);
+    setScene(streetVector,scene);
 
 //    for(int i = 0; i<streetVector.size(); i++){
 //        streetVector[i].writeList();
@@ -139,19 +138,15 @@ void MainWindow::setPaths(){
     }
 }
 
-void MainWindow::setSceneStreet(QVector<Street> streetVector,QGraphicsScene* scene ) //klomen
+void MainWindow::setScene(QVector<Street> streetVector,QGraphicsScene* scene ) //klomen
 {
     for(int i = 0; i < streetVector.size();i++)
     {
         scene->addLine(streetVector[i].getStart().getX(),streetVector[i].getStart().getY(),streetVector[i].getEnd().getX(),streetVector[i].getEnd().getY());
-    }
-}
-
-void MainWindow::setSceneStop(QVector<Stop> stopVector, QGraphicsScene *scene)
-{
-    for(int i = 0; i < stopVector.size();i++)
-    {
-        scene->addEllipse(QRect(stopVector[i].getPosition().getX()-4, stopVector[i].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
+        for(int j = 0; j < streetVector[i].getSizeOfStopList() ;j++)
+        {
+            scene->addEllipse(QRect(streetVector[i].getStopOnPosition(j).getPosition().getX()-4, streetVector[i].getStopOnPosition(j).getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
+        }
     }
 }
 
