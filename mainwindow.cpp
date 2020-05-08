@@ -137,6 +137,25 @@ void MainWindow::setPaths(){
     }
 }
 
+<<<<<<< HEAD
+=======
+void MainWindow::setSceneStreet(QVector<Street> streetVector,QGraphicsScene* scene ) //klomen
+{
+    for(int i = 0; i < streetVector.size();i++)
+    {
+        scene->addLine(streetVector[i].getStart().getX(),streetVector[i].getStart().getY(),streetVector[i].getEnd().getX(),streetVector[i].getEnd().getY());
+    }
+}
+
+void MainWindow::setSceneStop(QVector<Stop> stopVector, QGraphicsScene *scene)
+{
+    for(int i = 0; i < stopVector.size();i++)
+    {
+        scene->addEllipse(QRect(stopVector[i].getPosition().getX()-4, stopVector[i].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
+    }
+}
+
+>>>>>>> 3b5ee986f7438058e7ab851dd80bacbaaea51211
 MainWindow::~MainWindow()
 {
     delete ui;
