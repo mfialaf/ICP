@@ -106,7 +106,7 @@ double Path::getPathValue()
 
 void Path::setStreetsAndStops(QVector<Street> streetVector){
     int justFirstStartAddedFlag = 1;
-    for(int i = 0; streetNames.size(); i++){
+    for(int i = 0; i<streetNames.size(); i++){
         for(int j = 0; j<streetVector.size(); j++){
             if(!QString::compare(streetVector[j].getName(), streetNames[i])){
                 if(justFirstStartAddedFlag){
