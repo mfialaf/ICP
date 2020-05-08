@@ -14,6 +14,13 @@ Path::Path(QList<Coordinate> pathList)
     this->pathList = pathList;
 }
 
+Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval){
+    this->streetNames = streetNames;
+    this->speed = speed;
+    this->pathNumber = pathNumber;
+    this->interval = interval;
+}
+
 double Path::getDistanceOfCoordinates(Coordinate a, Coordinate b)
 {
     return sqrt( pow((a.getX() - b.getX()),2) + pow((a.getY() - b.getY()),2));

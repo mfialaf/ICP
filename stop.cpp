@@ -16,3 +16,7 @@ Coordinate Stop::getPosition(){
     return position;
 }
 
+QString Stop::getName(){
+    return name;
+}
+

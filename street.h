@@ -21,7 +21,7 @@ private:
     Coordinate start;
     Coordinate end;
     QString name;
-    QVector<Coordinate> stopList;
+    QVector<Stop> stopList;
 
 };
 

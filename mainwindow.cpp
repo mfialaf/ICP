@@ -72,6 +72,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     AddingStopIntoStreet();
 
+//    for(int i = 0; i<streetVector.size(); i++){
+//        streetVector[i].writeList();
+//    }
+
     scene->addLine(streetVector[0].getStart().getX(),streetVector[0].getStart().getY(),streetVector[0].getEnd().getX(),streetVector[0].getEnd().getY());
     scene->addLine(streetVector[1].getStart().getX(),streetVector[1].getStart().getY(),streetVector[1].getEnd().getX(),streetVector[1].getEnd().getY());
     scene->addLine(streetVector[2].getStart().getX(),streetVector[2].getStart().getY(),streetVector[2].getEnd().getX(),streetVector[2].getEnd().getY());

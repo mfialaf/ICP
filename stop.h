@@ -11,6 +11,7 @@ public:
     Stop(QString name, Coordinate position);
 //    void setStreet(Street street);
     Coordinate getPosition();
+    QString getName();
 
 private:
     QString name;

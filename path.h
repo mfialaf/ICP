@@ -3,12 +3,14 @@
 
 #include <QList>
 #include <coordinate.h>
+#include <stop.h>
 
 class Path
 {
 public:
     Path();
     Path(QList<Coordinate> pathList);
+    Path(QVector<QString> streetNames, double speed, double linkNumber, double interval);
 
     double getDistanceOfCoordinates(Coordinate a, Coordinate b);
     Coordinate getCoordinateByDistance (double distance, bool direction);
@@ -17,7 +19,11 @@ public:
 
 private:
     QList<Coordinate> pathList;
-    QVector<Coordinate> stopList;
+    QVector<Stop> stopList;
+    QVector<QString> streetNames;
+    double speed;
+    double pathNumber;
+    double interval;
 };
 
 #endif // PATH_H

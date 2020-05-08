@@ -18,13 +18,13 @@ Coordinate Street::getEnd(){
 }
 
 void Street::insertStop(Stop stop){
-    stopList.append(stop.getPosition());
+    stopList.append(stop);
 }
 
 void Street::writeList(){
     qDebug() << name << ": ";
     for(int i = 0; i<stopList.size(); i++){
-        qDebug() << stopList[i].getX() << stopList[i].getY();
+        qDebug() << stopList[i].getName() << stopList[i].getName();
     }
 }
 //pri pridavani zastavek do path, vypocitam vzdalenost zastavky od startu a podle toho vim kterou zastavku mam pridat jako prvni (pouze pri vice zastavek)
