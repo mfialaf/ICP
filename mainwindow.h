@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QMap>
+#include <street.h>
+#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,11 +23,8 @@ public:
     QString TimeSetter();
     void AddingStopIntoStreet();
     void setPaths();
-<<<<<<< HEAD
-=======
     void setSceneStreet(QVector<Street> streetVector, QGraphicsScene* scene);
     void setSceneStop(QVector<Stop> stopVector, QGraphicsScene* scene); //Koment
->>>>>>> 3b5ee986f7438058e7ab851dd80bacbaaea51211
 
 signals:
     void signalChanged(int val);
