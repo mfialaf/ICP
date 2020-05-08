@@ -19,6 +19,7 @@ QVector<Vehicle> vehicleVector;
 QVector<Coordinate> coordinateVector;
 QVector<Stop> stopVector;
 QVector<Street> streetVector;
+QMap <double, Path> pathMap;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Marin JsonRead
     JsonRead file;
-    file.ReadJson(&stopVector,&streetVector);
+    file.ReadJson(&stopVector,&streetVector,&pathMap);
 
 
 

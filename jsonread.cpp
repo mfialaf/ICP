@@ -4,7 +4,7 @@ JsonRead::JsonRead()
 
 }
 
-void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector)
+void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector, QMap <double, Path>* pathMap)
 {
 
 //    QDir dir = dir.currentPath();
@@ -66,6 +66,9 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
          QJsonValue speed = pathAllO.value(QString("speed"));
 
          QJsonArray streetNamsesArray = pathAllO["streetNames"].toArray();
+         QVector<QString> streetNamesVector;
+        // for (int i: streetNamsesArray)
+         //streetNamesVector.insert(streetNamesVector.begin(), std::begin(streetNamsesArray), std::end(streetNamsesArray));
          for(int j = 0; j < streetNamsesArray.size(); j++)
          {
                 qDebug() << "JmenaUlic: " << streetNamsesArray[j].toString();
