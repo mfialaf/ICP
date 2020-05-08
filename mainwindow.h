@@ -26,7 +26,7 @@ public:
     QString TimeSetter();
     void AddingStopIntoStreet();
     void setSceneStreet(QVector<Street> streetVector, QGraphicsScene* scene);
-    void setSceneStop(QVector<Stop> stopVector, QGraphicsScene* scene);
+    void setSceneStop(QVector<Stop> stopVector, QGraphicsScene* scene); //Koment
 
 signals:
     void signalChanged(int val);

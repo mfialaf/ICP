@@ -113,7 +113,7 @@ void MainWindow::AddingStopIntoStreet(){
     }
 }
 
-void MainWindow::setSceneStreet(QVector<Street> streetVector,QGraphicsScene* scene )
+void MainWindow::setSceneStreet(QVector<Street> streetVector,QGraphicsScene* scene ) //klomen
 {
     for(int i = 0; i < streetVector.size();i++)
     {
