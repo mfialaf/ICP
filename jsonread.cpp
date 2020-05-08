@@ -4,6 +4,9 @@ JsonRead::JsonRead()
 
 }
 
+/*
+ * Funkce pro zpracovani vstupniho souboru
+ */
 void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector, QVector <Path>* pathVector)
 {
 
@@ -22,13 +25,12 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
     file.setFileName("../inputFile.json");
     if (!file.exists())
     {
-        qDebug() << "Kokotsky soubor se neotevrel";
+        qDebug() << "Vstupni soubor se neporadilo otevrit";
+        exit(-10);
     }
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();
-
-    //qDebug() << val;
 
     QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
     QJsonObject obj = doc.object();
@@ -41,7 +43,6 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
 
         QJsonValue NameV = streetAllO.value(QString("name"));
         streetVector->append(Street(NameV.toString(), Coordinate(getXorYfrom(streetAllO,"begin","x"),getXorYfrom(streetAllO,"begin","y")), Coordinate(getXorYfrom(streetAllO,"end","x"),getXorYfrom(streetAllO,"end","y"))));
-     //   qDebug() << "nazev + start konec x y jsou: " << NameV.toString() << getXorYfrom(streetAllO,"begin","x") << getXorYfrom(streetAllO,"begin","y") << getXorYfrom(streetAllO,"end","x") << getXorYfrom(streetAllO,"end","y");
     }
 
     // Stop
@@ -51,7 +52,6 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
         QJsonObject stopAllO= stopArray[i].toObject();
         QJsonValue NameV = stopAllO.value(QString("name"));
         stopVector->append(Stop(NameV.toString(), Coordinate(getXorYfrom(stopAllO,"position","x"), getXorYfrom(stopAllO,"position","y"))));
-        //qDebug() << "nazev zastavky + start konec x y jsou: " << NameV.toString() << getXorYfrom(stopAllO,"position","x") << getXorYfrom(stopAllO,"position","y");
     }
 
     // Path
@@ -60,25 +60,28 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
     {
          QJsonObject pathAllO= pathArray[i].toObject();
 
+         //Prevedeni seznamu ulic do vektoru
+         QJsonArray streetNamsesArray = pathAllO["streetNames"].toArray();
+         QVector<QString> streetNamesVector;
+         for(int j = 0; j < streetNamsesArray.size(); j++)
+         {
+             streetNamesVector.append(streetNamsesArray[j].toString());
+         }
+
+         //Ziskani sbylych promennych
          QJsonValue interval = pathAllO.value(QString("interval"));
-         QJsonValue vehicleCount = pathAllO.value(QString("vehicleCount"));
          QJsonValue linkName = pathAllO.value(QString("linkName"));
          QJsonValue speed = pathAllO.value(QString("speed"));
 
-         QJsonArray streetNamsesArray = pathAllO["streetNames"].toArray();
-         QVector<QString> streetNamesVector;
-        // for (int i: streetNamsesArray)
-         //streetNamesVector.insert(streetNamesVector.begin(), std::begin(streetNamsesArray), std::end(streetNamsesArray));
-         for(int j = 0; j < streetNamsesArray.size(); j++)
-         {
-                qDebug() << "JmenaUlic: " << streetNamsesArray[j].toString();
-         }
-         qDebug() << "interval + vehicleCount + linkName + speed" << interval.toString().toDouble() << vehicleCount.toString().toDouble() << linkName.toString().toDouble() << speed.toString().toDouble();
+         pathVector->append(Path(streetNamesVector,(speed.toString().toDouble()),linkName.toString().toDouble(),interval.toString().toDouble()));
     }
 
 
 }
 
+/*
+ * Funkce vracejici pozadovanou souradnici z daneho objektu
+ */
 double JsonRead::getXorYfrom(QJsonObject Object, QString name, QString XorY)
 {
     //Zapis normalniho programatora
@@ -86,9 +89,6 @@ double JsonRead::getXorYfrom(QJsonObject Object, QString name, QString XorY)
     QJsonObject Object2 = value.toObject();
     QJsonValue x = Object2.value(QString(XorY));
     return x.toString().toDouble();
-
-    //Zapis Borise
-    //return Object.value(QString(name)).toObject().value(QString(XorY)).toString().toDouble();
 }
 
 
