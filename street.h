@@ -14,8 +14,13 @@ public:
     Street(QString name, Coordinate start, Coordinate end);
     Coordinate getStart();
     Coordinate getEnd();
+    QString getName();
     void insertStop(Stop stop);
     void writeList();
+    void sortStops();
+    double getDistanceFromStart(Coordinate coordinate);
+    Stop getStopOnPosition(int position);
+    int getSizeOfStopList();
 
 private:
     Coordinate start;

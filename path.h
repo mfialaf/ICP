@@ -4,6 +4,7 @@
 #include <QList>
 #include <coordinate.h>
 #include <stop.h>
+#include <street.h>
 
 class Path
 {
@@ -15,7 +16,8 @@ public:
     double getDistanceOfCoordinates(Coordinate a, Coordinate b);
     Coordinate getCoordinateByDistance (double distance, bool direction);
     double getPathValue();
-
+    bool stopSameAsPosition(Coordinate coordinate);
+    void setStreetsAndStops(QVector<Street> streetVector);
 
 private:
     QList<Coordinate> pathList;

@@ -25,6 +25,7 @@ public:
     void StartTime();
     QString TimeSetter();
     void AddingStopIntoStreet();
+    void setPaths();
     void setSceneStreet(QVector<Street> streetVector, QGraphicsScene* scene);
     void setSceneStop(QVector<Stop> stopVector, QGraphicsScene* scene); //Koment
 
