@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Marin JsonRead
     JsonRead file;
-    file.ReadJson();
+    file.ReadJson(&stopVector,&streetVector);
 
 
 

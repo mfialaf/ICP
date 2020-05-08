@@ -6,13 +6,15 @@
 #include <QFile>
 #include <QDebug>
 #include <QJsonArray>
+#include <stop.h>
+#include <street.h>
 
 
 class JsonRead
 {
 public:
     JsonRead();
-    void ReadJson();
+    void ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector);
     double getXorYfrom(QJsonObject Object, QString name, QString XorY);
 };
 

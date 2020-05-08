@@ -4,7 +4,7 @@ JsonRead::JsonRead()
 
 }
 
-void JsonRead::ReadJson()
+void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector)
 {
 
 //    QDir dir = dir.currentPath();
@@ -33,24 +33,28 @@ void JsonRead::ReadJson()
     QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
     QJsonObject obj = doc.object();
 
+    // Streeet
     QJsonArray streetArray = obj["street"].toArray();
     for(int i = 0; i < streetArray.size(); i++)
     {
         QJsonObject streetAllO= streetArray[i].toObject();
 
         QJsonValue NameV = streetAllO.value(QString("name"));
-        qDebug() << "nazev + start konec x y jsou: " << NameV.toString() << getXorYfrom(streetAllO,"begin","x") << getXorYfrom(streetAllO,"begin","y") << getXorYfrom(streetAllO,"end","x") << getXorYfrom(streetAllO,"end","y");
+        streetVector->append(Street(NameV.toString(), Coordinate(getXorYfrom(streetAllO,"begin","x"),getXorYfrom(streetAllO,"begin","y")), Coordinate(getXorYfrom(streetAllO,"end","x"),getXorYfrom(streetAllO,"end","y"))));
+     //   qDebug() << "nazev + start konec x y jsou: " << NameV.toString() << getXorYfrom(streetAllO,"begin","x") << getXorYfrom(streetAllO,"begin","y") << getXorYfrom(streetAllO,"end","x") << getXorYfrom(streetAllO,"end","y");
     }
 
+    // Stop
     QJsonArray stopArray = obj["stop"].toArray();
     for(int i = 0; i < stopArray.size(); i++)
     {
         QJsonObject stopAllO= stopArray[i].toObject();
-
         QJsonValue NameV = stopAllO.value(QString("name"));
-        qDebug() << "nazev zastavky + start konec x y jsou: " << NameV.toString() << getXorYfrom(stopAllO,"position","x") << getXorYfrom(stopAllO,"position","y");
+        stopVector->append(Stop(NameV.toString(), Coordinate(getXorYfrom(stopAllO,"position","x"), getXorYfrom(stopAllO,"position","y"))));
+        //qDebug() << "nazev zastavky + start konec x y jsou: " << NameV.toString() << getXorYfrom(stopAllO,"position","x") << getXorYfrom(stopAllO,"position","y");
     }
 
+    // Path
     QJsonArray pathArray = obj["path"].toArray();
     for(int i = 0; i < pathArray.size(); i++)
     {
