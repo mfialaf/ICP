@@ -21,6 +21,7 @@ private:
     QList<Coordinate> pathList;
     QVector<Stop> stopList;
     QVector<QString> streetNames;
+    QVector<QString> stopNames;
     double speed;
     double pathNumber;
     double interval;
