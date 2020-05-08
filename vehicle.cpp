@@ -29,6 +29,13 @@ void Vehicle::vehMove(Coordinate coordinate){
 
 void Vehicle::vehUpdate(){
     //if(stop == true) if(stopWaiter == 10) stop == false stopWaiter = 0 else stopWaiter++ return
+    if(path.stopSameAsPosition(position) && stopWaiter != 5){
+        stopWaiter++;
+        return;
+    }
+    else{
+        stopWaiter = 0;
+    }
     distance+=speed/150;
     if(distance > path.getPathValue())
     {

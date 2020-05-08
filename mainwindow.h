@@ -20,6 +20,7 @@ public:
     void StartTime();
     QString TimeSetter();
     void AddingStopIntoStreet();
+    void setPaths();
 
 signals:
     void signalChanged(int val);

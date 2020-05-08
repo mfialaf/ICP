@@ -25,6 +25,7 @@ private:
     double speed;
     double distance = 0;
     Path path;
+    int stopWaiter = 0;
 
 
 };

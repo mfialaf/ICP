@@ -72,6 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     stopVector.append(Stop("stop6", Coordinate(443.912037, 463.502542)));
 
     AddingStopIntoStreet();
+    setPaths();
 
 //    for(int i = 0; i<streetVector.size(); i++){
 //        streetVector[i].writeList();
@@ -126,6 +127,13 @@ void MainWindow::AddingStopIntoStreet(){
                 streetVector[i].insertStop(stopVector[j]);
             }
         }
+        streetVector[i].sortStops();
+    }
+}
+
+void MainWindow::setPaths(){
+    for(int i=0; i<pathVector.size(); i++){
+        pathVector[i].setStreetsAndStops(streetVector);
     }
 }
 

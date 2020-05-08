@@ -1,5 +1,6 @@
 #include "street.h"
 #include <QDebug>
+#include <math.h>
 
 Street::Street(){}
 
@@ -27,4 +28,44 @@ void Street::writeList(){
         qDebug() << stopList[i].getName();
     }
 }
-//pri pridavani zastavek do path, vypocitam vzdalenost zastavky od startu a podle toho vim kterou zastavku mam pridat jako prvni (pouze pri vice zastavek)
+
+void Street::sortStops(){
+    Stop tmp;
+    int x=0;
+    if(stopList.size() == 0)
+    {
+        return;
+    }
+    else{
+        tmp = stopList[0];
+    }
+    for(int j = 0; j<stopList.size()-x; j++)
+    {
+        for(int i=1; i<stopList.size()-x; i++){
+            if(getDistanceFromStart(tmp.getPosition())>getDistanceFromStart(stopList[i].getPosition())){
+                stopList[i-1] = stopList[i];
+                stopList[i] = tmp;
+            }
+            else{
+                tmp = stopList[i];
+            }
+        }
+        x++;
+    }
+}
+
+QString Street::getName(){
+    return name;
+}
+
+double Street::getDistanceFromStart(Coordinate coordinate){
+    return sqrt( pow((start.getX() - coordinate.getX()),2) + pow((start.getY() - coordinate.getY()),2));
+}
+
+Stop Street::getStopOnPosition(int position){
+    return stopList[position];
+}
+
+int Street::getSizeOfStopList(){
+    return stopList.size();
+}
