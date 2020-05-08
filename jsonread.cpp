@@ -4,7 +4,7 @@ JsonRead::JsonRead()
 
 }
 
-void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector, QMap <double, Path>* pathMap)
+void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector, QVector <Path>* pathVector)
 {
 
 //    QDir dir = dir.currentPath();
