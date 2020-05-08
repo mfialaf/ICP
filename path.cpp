@@ -36,8 +36,9 @@ double Path::getDistanceOfCoordinates(Coordinate a, Coordinate b)
 
 bool Path::stopSameAsPosition(Coordinate coordinate){
     for(int i = 0; i<stopList.size(); i++){
-        if(coordinate.getX() == stopList[i].getPosition().getX() && coordinate.getY() == stopList[i].getPosition().getY()){
+        if(qRound(coordinate.getX()) == qRound(stopList[i].getPosition().getX()) && qRound(coordinate.getY()) == qRound(stopList[i].getPosition().getY())){
             return true;
+
         }
     }
     return false;
@@ -124,6 +125,8 @@ void Path::setStreetsAndStops(QVector<Street> streetVector){
                 for(int k = 0; k<streetVector[j].getSizeOfStopList(); k++){
                     pathList.append(streetVector[j].getStopOnPosition(k).getPosition());
                     stopNames.append(streetVector[j].getStopOnPosition(k).getName());
+                    stopList.append(streetVector[j].getStopOnPosition(k));
+
                 }
                 pathList.append(streetVector[j].getEnd());
             }

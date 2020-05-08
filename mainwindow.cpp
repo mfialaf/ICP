@@ -163,7 +163,6 @@ void MainWindow::TimeUpdate()
     else{
         timeupdate++;
     }
-
     vehicleVector[0].vehUpdate();
     vehicleVector[1].vehUpdate();
     //vehicleVector[2].vehUpdate();
