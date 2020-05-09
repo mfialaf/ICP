@@ -8,8 +8,8 @@
 #include <jsonread.h>
 #include <sceneedit.h>
 
-int seconds = 0;
-int minutes = 0;
+int seconds = 59;
+int minutes = 29;
 int hours = 0;
 int timeupdate = 0;
 QVector<Vehicle> vehicleVector;
@@ -95,11 +95,21 @@ void MainWindow::startVehicle()
     QVector<Path>::iterator it1;
     for (it1 = pathVector.begin(); it1 != pathVector.end(); it1++)
     {
-        if (((hours * 60 + minutes) % it1->pathGetInterval() == 0) && seconds == 0)
+        if(hours > 6 && hours < 23){
+            if (((hours * 60 + minutes) % it1->pathGetInterval() == 0) && seconds == 0)
+            {
+                vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
+                scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
+                //qDebug() << "start linka:" << it1->pathGetLinkName();
+            }
+        }
+        else{
+        if (((hours * 60 + minutes) % 30 == 0) && seconds == 0)
         {
             vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
             scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
-            qDebug() << "start linka:" << it1->pathGetLinkName();
+            //qDebug() << "start linka:" << it1->pathGetLinkName();
+        }
         }
     }
 
@@ -108,9 +118,13 @@ void MainWindow::startVehicle()
     {
         if(it->isAtStart() && it->getDistance() > 100)
         {
-            qDebug() << "konec linka:" << it->getPath().pathGetLinkName() << it->getDistance();
+            //qDebug() << "konec linka:" << it->getPath().pathGetLinkName() << it->getDistance() << vehicleVector.size();
             scene->removeItem((*it).getEllipse());
             vehicleVector.erase(it);
+            if(vehicleVector.size()==0){
+                return;
+            }
+            it--;
         }
     }
 }
@@ -125,15 +139,15 @@ void MainWindow::TimeUpdate()
     if(timeupdate == 20){
         ui->time->setText(TimeSetter());
         timeupdate = 0;
+        startVehicle();
     }
     else{
         timeupdate++;
     }
-
-QVector<Vehicle>:: iterator it;
-for (it = vehicleVector.begin(); it != vehicleVector.end(); it++) {
-    it->vehUpdate();
-}
+    QVector<Vehicle>:: iterator it;
+    for (it = vehicleVector.begin(); it != vehicleVector.end(); it++) {
+        it->vehUpdate();
+    }
 }
 
 
@@ -200,7 +214,6 @@ QString MainWindow::TimeSetter(){
     else
         time.append(QString::number(seconds));
     time.append(" | SPEED ->");
-    startVehicle();
     return time;
 }
 
