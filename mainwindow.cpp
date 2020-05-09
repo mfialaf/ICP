@@ -143,26 +143,25 @@ void MainWindow::setScene(QVector<Street> streetVector,QGraphicsScene* scene ) /
     }
 }
 
-void MainWindow::startVehicle(QVector<Path> pathVector)
+void MainWindow::startVehicle()
 {
-    for(int i = 0; i < pathVector.size(); i++)
+    QVector<Path>::iterator it1;
+    for (it1 = pathVector.begin(); it1 != pathVector.end(); it1++)
     {
-        if ((minutes % pathVector[i].pathGetInterval() == 0) && seconds == 0)
+        if ((minutes % it1->pathGetInterval() == 0) && seconds == 0)
         {
-            qDebug() << "start linka:" << pathVector[i].pathGetLinkName();
-            //        vehicleVector.append(Vehicle(pathVector[0].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[0]));
-            //        scene->addItem(vehicleVector[1].getEllipse());
+            qDebug() << "start linka:" << it1->pathGetLinkName();
         }
-        if(vehicleVector[i].isAtStart())
-        {
-            qDebug() << "konec linka:" << pathVector[i].pathGetLinkName();
-        }
-
     }
 
-/*
-    if(vehicleVector[1].isAtStart())
-        scene->removeItem(vehicleVector[1].getEllipse());*/
+    QVector<Vehicle>:: iterator it;
+    for (it = vehicleVector.begin(); it != vehicleVector.end(); it++)
+    {
+        if(it->isAtStart())
+        {
+            qDebug() << "konec linka:" << it->getPath().pathGetLinkName();
+        }
+    }
 
 }
 
@@ -255,7 +254,7 @@ QString MainWindow::TimeSetter(){
     else
         time.append(QString::number(seconds));
     time.append(" | SPEED ->");
-    startVehicle(pathVector);
+    startVehicle();
     return time;
 }
 

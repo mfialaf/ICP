@@ -28,7 +28,7 @@ public:
     void AddingStopIntoStreet();
     void setPaths();
     void setScene(QVector<Street> streetVector, QGraphicsScene* scene);
-    void startVehicle(QVector<Path> pathVector);
+    void startVehicle();
 
 signals:
     void signalChanged(int val);
