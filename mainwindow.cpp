@@ -7,9 +7,10 @@
 #include <QGraphicsItem>
 #include <jsonread.h>
 #include <sceneedit.h>
+#include <QDateTime>
 
-int seconds = 59;
-int minutes = 29;
+int seconds = 0;
+int minutes = 0;
 int hours = 0;
 int timeupdate = 0;
 QVector<Vehicle> vehicleVector;
@@ -44,6 +45,14 @@ MainWindow::MainWindow(QWidget *parent)
     // Co porpojuju, jakej to am signal(F1), ------ , na co to napojuju
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
 
+
+
+    //qDebug() << "Local time is:" << local.time().hour();
+
+//    QDateTime time2;
+//    time2.toLocalTime();
+//    //QTime time;
+//    qDebug() << time2.time();
     StartTime();
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
@@ -96,7 +105,7 @@ void MainWindow::startVehicle()
     for (it1 = pathVector.begin(); it1 != pathVector.end(); it1++)
     {
         if(hours > 6 && hours < 23){
-            if (((hours * 60 + minutes) % it1->pathGetInterval() == 0) && seconds == 0)
+            if ((((hours-6) * 60 + minutes) % it1->pathGetInterval() == 0) && seconds == 0)
             {
                 vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
                 scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
@@ -159,7 +168,13 @@ void MainWindow::timeChanged(int val)
 
 void MainWindow::StartTime()
 {
-    ui->time->setText("<- ZOOM | 00:00:00 | SPEED ->");
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local(UTC.toLocalTime());
+    hours = local.time().hour();
+    minutes = local.time().minute();
+    seconds = local.time().second();
+
+    ui->time->setText(TimeSetter());
     ui->time->setAlignment(Qt::AlignCenter);
     QFont Font("Courier New", 12);
     ui->time->setFont(Font);
