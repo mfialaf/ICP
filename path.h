@@ -11,7 +11,7 @@ class Path
 public:
     Path();
     Path(QList<Coordinate> pathList);
-    Path(QVector<QString> streetNames, double speed, double linkNumber, double interval);
+    Path(QVector<QString> streetNames, double speed, double linkNumber, double interval, int color);
 
     double getDistanceOfCoordinates(Coordinate a, Coordinate b);
     Coordinate getCoordinateByDistance (double distance, bool direction);
@@ -20,8 +20,10 @@ public:
     void setStreetsAndStops(QVector<Street> streetVector);
     Coordinate pathGetStart();
     double pathGetSpeed();
+    int getColor();
     int pathGetInterval();
     int pathGetLinkName();
+
 
 private:
     QList<Coordinate> pathList;
@@ -31,6 +33,7 @@ private:
     double speed;
     double pathNumber; //Jmeno linky
     double interval;
+    int color;
 };
 
 #endif // PATH_H

@@ -13,7 +13,7 @@ class Vehicle
 
 public:
     Vehicle();
-    Vehicle(Coordinate position, double speed, Path path);
+    Vehicle(Coordinate position, double speed, Path path, int color);
     QGraphicsEllipseItem* getEllipse();
     void vehMove(Coordinate coordinate);
     void vehUpdate();

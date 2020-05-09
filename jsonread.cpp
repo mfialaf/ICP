@@ -73,7 +73,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
          QJsonValue linkName = pathAllO.value(QString("linkName"));
          QJsonValue speed = pathAllO.value(QString("speed"));
 
-         pathVector->append(Path(streetNamesVector,(speed.toString().toDouble()),linkName.toString().toDouble(),interval.toString().toDouble()));
+         pathVector->append(Path(streetNamesVector,(speed.toString().toDouble()),linkName.toString().toDouble(),interval.toString().toDouble(), rand() % 16770000));
     }
 
 

@@ -6,7 +6,7 @@ Vehicle::Vehicle()
 
 }
 
-Vehicle::Vehicle(Coordinate position, double speed, Path path)
+Vehicle::Vehicle(Coordinate position, double speed, Path path, int color)
 {
     if(speed>90)
         speed = 90;
@@ -16,7 +16,7 @@ Vehicle::Vehicle(Coordinate position, double speed, Path path)
     this->path = path;
     this->visual = new QGraphicsEllipseItem ();
     this->visual->setRect(position.getX()-5, position.getY()-5, 10, 10);
-    this->visual->setBrush(QBrush(QColor(rand() % 16770000)));
+    this->visual->setBrush(QBrush(QColor(color)));
 }
 
 double Vehicle::getDistance(){

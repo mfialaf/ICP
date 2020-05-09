@@ -36,68 +36,14 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
-//    streetVector.append(Street("street1", Coordinate(136,89), Coordinate(534,97)));
-//    streetVector.append(Street("street2", Coordinate(534,97), Coordinate(140,418)));
-//    streetVector.append(Street("street3", Coordinate(140,418), Coordinate(681,499)));
-
-//    QList<Coordinate> insertData;
-//    QList<Coordinate> insertData1;
-//    QList<Coordinate> insertData2;
-
-//    insertData.append(Coordinate(136,89));
-//    insertData.append(Coordinate(534,97));
-//    insertData.append(Coordinate(140,418));
-
-//    insertData1.append(Coordinate(534,97));
-//    insertData1.append(Coordinate(136,89));
-
-//    insertData2.append(Coordinate(681,499));
-//    insertData2.append(Coordinate(140,418));
-//    insertData2.append(Coordinate(534,97));
-//    insertData2.append(Coordinate(136,89));
-
-//    Path path(insertData);
-//    Path path1(insertData1);
-//    Path path2(insertData2);
-
-//    stopVector.append(Stop("stop1", Coordinate(214.576557, 90.579428)));
-//    stopVector.append(Stop("stop2", Coordinate(454.799053, 95.408021)));
-//    stopVector.append(Stop("stop3", Coordinate(450.770913, 164.808469)));
-//    stopVector.append(Stop("stop4", Coordinate(268.503862, 313.305229)));
-//    stopVector.append(Stop("stop5", Coordinate(189.434272, 425.401434)));
-//    stopVector.append(Stop("stop6", Coordinate(443.912037, 463.502542)));
-
     AddingStopIntoStreet();
     setPaths();
     setScene(streetVector);
-
-//    for(int i = 0; i<streetVector.size(); i++){
-//        streetVector[i].writeList();
-//    }
-
-//    scene->addLine(streetVector[0].getStart().getX(),streetVector[0].getStart().getY(),streetVector[0].getEnd().getX(),streetVector[0].getEnd().getY());
-//    scene->addLine(streetVector[1].getStart().getX(),streetVector[1].getStart().getY(),streetVector[1].getEnd().getX(),streetVector[1].getEnd().getY());
-//    scene->addLine(streetVector[2].getStart().getX(),streetVector[2].getStart().getY(),streetVector[2].getEnd().getX(),streetVector[2].getEnd().getY());
-
-//    scene->addEllipse(QRect(stopVector[0].getPosition().getX()-4, stopVector[0].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
-//    scene->addEllipse(QRect(stopVector[1].getPosition().getX()-4, stopVector[1].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
-//    scene->addEllipse(QRect(stopVector[2].getPosition().getX()-4, stopVector[2].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
-//    scene->addEllipse(QRect(stopVector[3].getPosition().getX()-4, stopVector[3].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
-//    scene->addEllipse(QRect(stopVector[4].getPosition().getX()-4, stopVector[4].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
-//    scene->addEllipse(QRect(stopVector[5].getPosition().getX()-4, stopVector[5].getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
 
     // Co porpojuju, jakej to am signal(F1), ------ , na co to napojuju
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
 
     StartTime();
-    vehicleVector.append(Vehicle(pathVector[0].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[0]));
-    vehicleVector.append(Vehicle(pathVector[1].pathGetStart(), pathVector[1].pathGetSpeed(), pathVector[1]));
-
-
-    scene->addItem(vehicleVector[0].getEllipse());
-    scene->addItem(vehicleVector[1].getEllipse());
-    //scene->addItem(vehicleVector[2].getEllipse());
-
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
@@ -148,9 +94,9 @@ void MainWindow::startVehicle()
     QVector<Path>::iterator it1;
     for (it1 = pathVector.begin(); it1 != pathVector.end(); it1++)
     {
-        if ((minutes % it1->pathGetInterval() == 0) && seconds == 0)
+        if (((hours * 60 + minutes) % it1->pathGetInterval() == 0) && seconds == 0)
         {
-            vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1)));
+            vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
             scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
             qDebug() << "start linka:" << it1->pathGetLinkName();
         }
@@ -187,12 +133,8 @@ QVector<Vehicle>:: iterator it;
 for (it = vehicleVector.begin(); it != vehicleVector.end(); it++) {
     it->vehUpdate();
 }
-//    vehicleVector[0].vehUpdate();
-//    vehicleVector[1].vehUpdate();
-//    vehicleVector[2].vehUpdate();
-
-
 }
+
 
 void MainWindow::timeChanged(int val)
 {

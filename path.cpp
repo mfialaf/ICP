@@ -22,6 +22,11 @@ double Path::pathGetSpeed(){
     return speed;
 }
 
+int Path::getColor()
+{
+    return color;
+}
+
 int Path::pathGetInterval()
 {
     return static_cast<int>(interval);
@@ -32,11 +37,12 @@ int Path::pathGetLinkName()
     return pathNumber;
 }
 
-Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval){
+Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval, int color){
     this->streetNames = streetNames;
     this->speed = speed;
     this->pathNumber = pathNumber;
     this->interval = interval;
+    this->color = color;
 }
 
 double Path::getDistanceOfCoordinates(Coordinate a, Coordinate b)
