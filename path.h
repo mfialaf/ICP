@@ -24,11 +24,13 @@ public:
     int pathGetInterval();
     int pathGetLinkName();
     QVector<Stop> pathGetStopList();
+    Street getStreet(double distance, bool direction);
 
 
 private:
     QList<Coordinate> pathList;
     QVector<Stop> stopList;
+    QVector<Street> streetList;
     QVector<QString> streetNames;
     QVector<QString> stopNames;
     double speed;

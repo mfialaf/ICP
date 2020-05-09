@@ -69,3 +69,6 @@ Stop Street::getStopOnPosition(int position){
 int Street::getSizeOfStopList(){
     return stopList.size();
 }
+int Street::getDelay(){
+    return delay;
+}

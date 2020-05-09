@@ -21,12 +21,14 @@ public:
     double getDistanceFromStart(Coordinate coordinate);
     Stop getStopOnPosition(int position);
     int getSizeOfStopList();
+    int getDelay();
 
 private:
     Coordinate start;
     Coordinate end;
     QString name;
     QVector<Stop> stopList;
+    int delay = 0;
 
 };
 

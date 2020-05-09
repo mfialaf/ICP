@@ -37,6 +37,30 @@ QVector<Stop> Path::pathGetStopList()
     return stopList;
 }
 
+Street Path::getStreet(double distance,bool direction)
+{
+    double length = 0;
+    if(direction){
+        for(int i=0; i<streetList.size(); i++){
+            if(length + getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd()) >= distance){
+                return streetList[i];
+            }
+            length += getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd());
+        }
+        return streetList[streetList.size()-1];
+    }
+    else{
+        for(int i=streetList.size()-1; i>=0; i--){
+            if(length + getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd()) >= distance){
+                return streetList[i];
+            }
+            length += getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd());
+        }
+        return streetList[0];
+    }
+
+}
+
 int Path::pathGetLinkName()
 {
     return pathNumber;
@@ -150,6 +174,7 @@ void Path::setStreetsAndStops(QVector<Street> streetVector){
 
                 }
                 pathList.append(streetVector[j].getEnd());
+                streetList.append(streetVector[j]);
             }
         }
     }
