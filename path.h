@@ -23,6 +23,7 @@ public:
     int getColor();
     int pathGetInterval();
     int pathGetLinkName();
+    QVector<Stop> pathGetStopList();
 
 
 private:

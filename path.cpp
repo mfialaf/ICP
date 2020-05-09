@@ -32,6 +32,11 @@ int Path::pathGetInterval()
     return static_cast<int>(interval);
 }
 
+QVector<Stop> Path::pathGetStopList()
+{
+    return stopList;
+}
+
 int Path::pathGetLinkName()
 {
     return pathNumber;

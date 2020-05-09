@@ -33,9 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
     file.ReadJson(&stopVector,&streetVector,&pathVector);
 
 
-
     // Vykresleni sceny
-    scene = new SceneEdit(ui->graphicsView);
+    scene = new SceneEdit(ui->graphicsView, &vehicleVector);
     ui->graphicsView->setScene(scene);
 
     AddingStopIntoStreet();
