@@ -21,6 +21,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     path.cpp \
+    sceneedit.cpp \
     stop.cpp \
     street.cpp \
     vehicle.cpp
@@ -30,6 +31,7 @@ HEADERS += \
     jsonread.h \
     mainwindow.h \
     path.h \
+    sceneedit.h \
     stop.h \
     street.h \
     vehicle.h

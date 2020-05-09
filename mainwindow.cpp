@@ -6,6 +6,7 @@
 #include <coordinate.h>
 #include <QGraphicsItem>
 #include <jsonread.h>
+#include <sceneedit.h>
 
 int seconds = 0;
 int minutes = 0;
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Vykresleni sceny
-    scene = new QGraphicsScene(ui->graphicsView);
+    scene = new SceneEdit(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
     AddingStopIntoStreet();
