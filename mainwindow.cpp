@@ -4,10 +4,6 @@
 #include <QtWidgets>
 #include <QRect>
 #include <coordinate.h>
-#include <street.h>
-#include <path.h>
-#include <vehicle.h>
-#include <stop.h>
 #include <QGraphicsItem>
 #include <jsonread.h>
 
@@ -20,6 +16,7 @@ QVector<Coordinate> coordinateVector;
 QVector<Stop> stopVector;
 QVector<Street> streetVector;
 QVector<Path> pathVector;
+QGraphicsScene* scene;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,9 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-
     // Vykresleni sceny
-    auto *scene = new QGraphicsScene(ui->graphicsView);
+    scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
 //    streetVector.append(Street("street1", Coordinate(136,89), Coordinate(534,97)));
@@ -94,14 +90,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
 
     StartTime();
-
     vehicleVector.append(Vehicle(pathVector[0].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[0]));
-    vehicleVector.append(Vehicle(pathVector[1].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[1]));
+    vehicleVector.append(Vehicle(pathVector[1].pathGetStart(), pathVector[1].pathGetSpeed(), pathVector[1]));
+
 
     scene->addItem(vehicleVector[0].getEllipse());
-
     scene->addItem(vehicleVector[1].getEllipse());
-
     //scene->addItem(vehicleVector[2].getEllipse());
 
     //uprava rasterizace vsech objektu
@@ -149,6 +143,29 @@ void MainWindow::setScene(QVector<Street> streetVector,QGraphicsScene* scene ) /
     }
 }
 
+void MainWindow::startVehicle(QVector<Path> pathVector)
+{
+    for(int i = 0; i < pathVector.size(); i++)
+    {
+        if ((minutes % pathVector[i].pathGetInterval() == 0) && seconds == 0)
+        {
+            qDebug() << "start linka:" << pathVector[i].pathGetLinkName();
+            //        vehicleVector.append(Vehicle(pathVector[0].pathGetStart(), pathVector[0].pathGetSpeed(), pathVector[0]));
+            //        scene->addItem(vehicleVector[1].getEllipse());
+        }
+        if(vehicleVector[i].isAtStart())
+        {
+            qDebug() << "konec linka:" << pathVector[i].pathGetLinkName();
+        }
+
+    }
+
+/*
+    if(vehicleVector[1].isAtStart())
+        scene->removeItem(vehicleVector[1].getEllipse());*/
+
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -163,9 +180,14 @@ void MainWindow::TimeUpdate()
     else{
         timeupdate++;
     }
-    vehicleVector[0].vehUpdate();
-    vehicleVector[1].vehUpdate();
-    //vehicleVector[2].vehUpdate();
+
+QVector<Vehicle>:: iterator it;
+for (it = vehicleVector.begin(); it != vehicleVector.end(); it++) {
+    it->vehUpdate();
+}
+//    vehicleVector[0].vehUpdate();
+//    vehicleVector[1].vehUpdate();
+//    vehicleVector[2].vehUpdate();
 
 
 }
@@ -233,6 +255,7 @@ QString MainWindow::TimeSetter(){
     else
         time.append(QString::number(seconds));
     time.append(" | SPEED ->");
+    startVehicle(pathVector);
     return time;
 }
 

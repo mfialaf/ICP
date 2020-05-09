@@ -48,3 +48,24 @@ void Vehicle::vehUpdate(){
     vehMove(coords);
     position = coords;
 }
+
+Path Vehicle::getPath()
+{
+    return path;
+}
+
+bool Vehicle::isAtStart()
+{
+    //   (qRound(position.getX()) == qRound(path.pathGetStart().getX()) && qRound(position.getY()) == qRound(path.pathGetStart().getY()))
+    if (compareWithTollerance(position.getX(), path.pathGetStart().getX()) && compareWithTollerance(position.getY(), path.pathGetStart().getY()))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Vehicle::compareWithTollerance(double a, double b)
+{
+    auto diff = a - b;
+    return (diff < 3) && (-diff < 3);
+}

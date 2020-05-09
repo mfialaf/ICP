@@ -6,6 +6,10 @@
 #include <QMap>
 #include <street.h>
 #include <QGraphicsScene>
+#include <street.h>
+#include <path.h>
+#include <vehicle.h>
+#include <stop.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +28,7 @@ public:
     void AddingStopIntoStreet();
     void setPaths();
     void setScene(QVector<Street> streetVector, QGraphicsScene* scene);
+    void startVehicle(QVector<Path> pathVector);
 
 signals:
     void signalChanged(int val);

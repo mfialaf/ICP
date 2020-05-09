@@ -22,6 +22,16 @@ double Path::pathGetSpeed(){
     return speed;
 }
 
+int Path::pathGetInterval()
+{
+    return static_cast<int>(interval);
+}
+
+int Path::pathGetLinkName()
+{
+    return pathNumber;
+}
+
 Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval){
     this->streetNames = streetNames;
     this->speed = speed;

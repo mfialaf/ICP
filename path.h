@@ -20,6 +20,8 @@ public:
     void setStreetsAndStops(QVector<Street> streetVector);
     Coordinate pathGetStart();
     double pathGetSpeed();
+    int pathGetInterval();
+    int pathGetLinkName();
 
 private:
     QList<Coordinate> pathList;
@@ -27,7 +29,7 @@ private:
     QVector<QString> streetNames;
     QVector<QString> stopNames;
     double speed;
-    double pathNumber;
+    double pathNumber; //Jmeno linky
     double interval;
 };
 
