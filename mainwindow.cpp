@@ -19,6 +19,7 @@ QVector<Stop> stopVector;
 QVector<Street> streetVector;
 QVector<Path> pathVector;
 QGraphicsScene* scene;
+Street* DelaydedStreet;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -34,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Vykresleni sceny
-    scene = new SceneEdit(ui->graphicsView, &vehicleVector, &streetVector,ui);
+    scene = new SceneEdit(ui->graphicsView, &vehicleVector, &streetVector,ui, DelaydedStreet);
     ui->graphicsView->setScene(scene);
 
 
@@ -149,6 +150,11 @@ void MainWindow::TimeUpdate()
         ui->time->setText(TimeSetter());
         timeupdate = 0;
         startVehicle();
+//        if(DelaydedStreet==nullptr){
+//            qDebug() << "HOVNOO";
+//            qDebug() << DelaydedStreet->getName();
+//        }
+
     }
     else{
         timeupdate++;

@@ -11,16 +11,18 @@ SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 
 }
 
-SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii)
+SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii, Street* street)
 {
     this->view = view;
     this->vehicleVector = vehicleVector;
     this->streetVector = streetVector;
     this->uii = *uii;
+    this->street = street;
 }
 
 void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 {
+    connect(uii.ButtonDelayPlus, &QPushButton::clicked, this ,&SceneEdit::delayPlus);
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector->begin(); it != vehicleVector->end(); it++) {
         if(it->visual == vehicle)
@@ -32,6 +34,24 @@ void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
                 qDebug() << it2->getName();
             }
         }
+    }
+}
+
+//nefunguje
+void SceneEdit::getStreet(QGraphicsLineItem* street){
+    if(this->street != nullptr){
+        if(this->street->getStart().getX() == street->line().x1() && this->street->getEnd().getX() == street->line().x2() && this->street->getStart().getY() == street->line().y1() && this->street->getEnd().getY() == street->line().y2() ) {
+            this->street = nullptr;
+            return;
+        }
+    }
+    QVector<Street>:: iterator it;
+    int i = 0;
+    for (it = streetVector->begin(); it != streetVector->end(); it++) {
+        if( it->getStart().getX() == street->line().x1() && it->getEnd().getX() == street->line().x2() && it->getStart().getY() == street->line().y1() && it->getEnd().getY() == street->line().y2() ) {
+            this->street = streetVector[i].data();
+        }
+        i++;
     }
 }
 
@@ -47,7 +67,7 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
         {
-            qDebug() << "ulice";
+            getStreet(street);
         }
         else
         {
@@ -55,12 +75,13 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
     // uii.time->setText("hovnohovnohovno");
-    connect(uii.ButtonDelayPlus, &QPushButton::clicked, this ,&SceneEdit::delayPlus);
+
     QGraphicsScene::mousePressEvent(event);
 }
 void SceneEdit::delayPlus()
 {
     qDebug() << "clicked";
+    qDebug() << "clicked2";
 
 }
 //void SceneEdit::mousePressEvent2(QMouseEvent *event){

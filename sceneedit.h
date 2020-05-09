@@ -16,11 +16,12 @@ class SceneEdit : public QGraphicsScene
     Q_OBJECT
 public:
     explicit SceneEdit(QObject *parent = nullptr);
-    SceneEdit(QGraphicsView* view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii);
+    SceneEdit(QGraphicsView* view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii, Street* street);
     void mouseReleaseEvent2(QMouseEvent *event);
     void mousePressEvent2(QMouseEvent *event);
     void mouseMoveEvent2(QMouseEvent *event);
     void printLink(QGraphicsEllipseItem* vehicle);
+    void getStreet(QGraphicsLineItem* street);
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -36,6 +37,7 @@ private:
     QGraphicsSceneMouseEvent* ui;
     QGraphicsView* view;
     Ui::MainWindow uii;
+    Street* street;
 };
 
 #endif // SCENEEDIT_H
