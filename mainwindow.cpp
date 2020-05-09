@@ -34,8 +34,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Vykresleni sceny
-    scene = new SceneEdit(ui->graphicsView, &vehicleVector);
+    scene = new SceneEdit(ui->graphicsView, &vehicleVector,ui);
     ui->graphicsView->setScene(scene);
+
 
     AddingStopIntoStreet();
     setPaths();

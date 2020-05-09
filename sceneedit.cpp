@@ -11,10 +11,11 @@ SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 
 }
 
-SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector)
+SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, Ui::MainWindow* uii)
 {
     this->view = view;
     this->vehicleVector = vehicleVector;
+    this->uii = *uii;
 }
 
 void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
@@ -47,8 +48,8 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             qDebug() << "jinde";
         }
+        uii.time->setText("hovnohovnohovno");
     }
-
     QGraphicsScene::mousePressEvent(event);
 }
 
