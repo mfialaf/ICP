@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Vykresleni sceny
-    scene = new SceneEdit(ui->graphicsView, &vehicleVector,ui);
+    scene = new SceneEdit(ui->graphicsView, &vehicleVector, &streetVector,ui);
     ui->graphicsView->setScene(scene);
 
 

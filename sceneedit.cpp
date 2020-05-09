@@ -11,10 +11,11 @@ SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 
 }
 
-SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, Ui::MainWindow* uii)
+SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii)
 {
     this->view = view;
     this->vehicleVector = vehicleVector;
+    this->streetVector = streetVector;
     this->uii = *uii;
 }
 
@@ -44,15 +45,24 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
             //qDebug() << "auto" << vehicleVector[0].data()->visual << "kliknuto na" << vehicle;
             printLink(vehicle);
         }
+        if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
+        {
+            qDebug() << "ulice";
+        }
         else
         {
             qDebug() << "jinde";
         }
-        uii.time->setText("hovnohovnohovno");
     }
+    // uii.time->setText("hovnohovnohovno");
+    connect(uii.ButtonDelayPlus, &QPushButton::clicked, this ,&SceneEdit::delayPlus);
     QGraphicsScene::mousePressEvent(event);
 }
+void SceneEdit::delayPlus()
+{
+    qDebug() << "clicked";
 
+}
 //void SceneEdit::mousePressEvent2(QMouseEvent *event){
 //    if (event->button() == Qt::RightButton)
 //    {
