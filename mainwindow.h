@@ -27,7 +27,7 @@ public:
     QString TimeSetter();
     void AddingStopIntoStreet();
     void setPaths();
-    void setScene(QVector<Street> streetVector, QGraphicsScene* scene);
+    void setScene(QVector<Street> streetVector);
     void startVehicle();
 
 signals:

@@ -71,5 +71,5 @@ bool Vehicle::isAtStart()
 bool Vehicle::compareWithTollerance(double a, double b)
 {
     auto diff = a - b;
-    return (diff < 3) && (-diff < 3);
+    return (diff < 8) && (-diff < 8);
 }

@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     AddingStopIntoStreet();
     setPaths();
-    setScene(streetVector,scene);
+    setScene(streetVector);
 
 //    for(int i = 0; i<streetVector.size(); i++){
 //        streetVector[i].writeList();
@@ -131,7 +131,7 @@ void MainWindow::setPaths(){
     }
 }
 
-void MainWindow::setScene(QVector<Street> streetVector,QGraphicsScene* scene ) //klomen
+void MainWindow::setScene(QVector<Street> streetVector) //klomen
 {
     for(int i = 0; i < streetVector.size();i++)
     {
@@ -150,6 +150,8 @@ void MainWindow::startVehicle()
     {
         if ((minutes % it1->pathGetInterval() == 0) && seconds == 0)
         {
+            vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1)));
+            scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
             qDebug() << "start linka:" << it1->pathGetLinkName();
         }
     }
@@ -157,12 +159,13 @@ void MainWindow::startVehicle()
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector.begin(); it != vehicleVector.end(); it++)
     {
-        if(it->isAtStart())
+        if(it->isAtStart() && it->getDistance() > 100)
         {
-            qDebug() << "konec linka:" << it->getPath().pathGetLinkName();
+            qDebug() << "konec linka:" << it->getPath().pathGetLinkName() << it->getDistance();
+            scene->removeItem((*it).getEllipse());
+            vehicleVector.erase(it);
         }
     }
-
 }
 
 MainWindow::~MainWindow()
