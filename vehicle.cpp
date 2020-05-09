@@ -19,6 +19,10 @@ Vehicle::Vehicle(Coordinate position, double speed, Path path)
     this->visual->setBrush(QBrush(QColor(rand() % 16770000)));
 }
 
+double Vehicle::getDistance(){
+    return distance;
+}
+
 QGraphicsEllipseItem* Vehicle::getEllipse(){
     return visual;
 }

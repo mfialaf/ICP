@@ -20,6 +20,7 @@ public:
     QGraphicsEllipseItem *visual;
     bool direction = true; //promenna pro zpetnou cestu, pri false vime ze jede na zpatek
     Path getPath();
+    double getDistance();
     bool isAtStart();
     bool compareWithTollerance(double a, double b);
 
