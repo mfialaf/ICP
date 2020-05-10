@@ -198,6 +198,7 @@ void MainWindow::increaseSecond()
     }
 }
 
+
 void MainWindow::decreaseSecond()
 {
     int tmp = static_cast<int>(ui->second->text().toDouble());

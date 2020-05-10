@@ -1,43 +1,72 @@
 #include "path.h"
-#include <math.h>
-#include <QDebug>
 
-//MARIN Neni KOKOT <3, ale kamen je kokot
-
+/**
+ * @brief Path::Path defaultní konstruktor
+ */
 Path::Path()
 {
 
 }
 
+/**
+ * @brief Path::Path konstrukor
+ * @param pathList list souřadnic cesty
+ */
 Path::Path(QList<Coordinate> pathList)
 {
     this->pathList = pathList;
 }
 
+/**
+ * @brief Path::pathGetStart
+ * @return Vrací počáteční bod cesty.
+ */
 Coordinate Path::pathGetStart(){
     return *pathList.begin();
 }
 
+/**
+ * @brief Path::pathGetSpeed
+ * @return Vrací rychlost pohybu vozidel na lince.
+ */
 double Path::pathGetSpeed(){
     return speed;
 }
 
+/**
+ * @brief Path::getColor
+ * @return Vrací barvu vozidel linky.
+ */
 int Path::getColor()
 {
     return color;
 }
 
+/**
+ * @brief Path::pathGetInterval
+ * @return Vrací časový interval rozestupu vozidel linky.
+ */
 int Path::pathGetInterval()
 {
     return static_cast<int>(interval);
 }
 
+/**
+ * @brief Path::pathGetStopList
+ * @return Vrací list zastávek linky.
+ */
 QVector<Stop> Path::pathGetStopList()
 {
     return stopList;
 }
 
-Street* Path::getStreet(double distance,bool direction)
+/**
+ * @brief Path::getStreet
+ * @param distance ujetá vzdálenost vozidla
+ * @param direction směr pohybu vozidla (tam/zpět)
+ * @return Vrací ulici na které se nachází vozidlo.
+ */
+Street* Path::getStreetWithVehicle(double distance,bool direction)
 {
     double length = 0;
     if(direction){
@@ -58,7 +87,6 @@ Street* Path::getStreet(double distance,bool direction)
         }
         return streetList[0];
     }
-
 }
 
 QVector<Street *> Path::getStreetList()

@@ -1,6 +1,8 @@
 #include "vehicle.h"
 #include <cstdlib>
 
+//Vehicle v konecne zastavce bude cekat dobu, ktera odpovida intervalu. Do vehicle pridat timer ktery bude zvysovat velikost pri tiku hodin, pri naplneni anulovat a vyslat zpet.
+
 Vehicle::Vehicle()
 {
 
@@ -39,7 +41,7 @@ void Vehicle::vehUpdate(){
     else{
         stopWaiter = 0;
     }
-    Street* street = path.getStreet(distance, direction);
+    Street* street = path.getStreetWithVehicle(distance, direction);
     distance+=speed/(150+street->getDelay());
     if(distance > path.getPathValue())
     {

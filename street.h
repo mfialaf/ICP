@@ -24,7 +24,7 @@ public:
     int getSizeOfStopList();
     int getDelay();
     void setDelay(int delay);
-    QGraphicsLineItem* line;
+    QGraphicsLineItem* getStreetAsQraphicsLine();
 
 private:
     Coordinate start;
@@ -32,6 +32,7 @@ private:
     QString name;
     QVector<Stop> stopList;
     int delay = 0;
+    QGraphicsLineItem* line;
 
 };
 
