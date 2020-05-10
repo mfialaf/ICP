@@ -9,18 +9,6 @@
 #include <sceneedit.h>
 #include <QDateTime>
 
-int seconds = 0;
-int minutes = 0;
-int hours = 0;
-int timeupdate = 0;
-QVector<Vehicle> vehicleVector;
-QVector<Coordinate> coordinateVector;
-QVector<Stop> stopVector;
-QVector<Street> streetVector;
-QVector<Path> pathVector;
-QGraphicsScene* scene;
-int DelaydedStreet = -1;
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -31,9 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     JsonRead file;
     file.ReadJson(&stopVector,&streetVector,&pathVector);
 
-
     // Vykresleni sceny
-    scene = new SceneEdit(ui->graphicsView, &vehicleVector, &streetVector,ui, &DelaydedStreet);
+    scene = new SceneEdit(ui->graphicsView, &vehicleVector, streetVector,ui, &DelaydedStreet);
     ui->graphicsView->setScene(scene);
 
 
@@ -47,14 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->ButtonDelayMinus, &QPushButton::pressed, this, &MainWindow::decreaseDelay);
     connect(ui->ButtonDelayReset, &QPushButton::pressed, this, &MainWindow::resetDelay);
 
-
-
-    //qDebug() << "Local time is:" << local.time().hour();
-
-//    QDateTime time2;
-//    time2.toLocalTime();
-//    //QTime time;
-//    qDebug() << time2.time();
     StartTime();
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
@@ -69,17 +48,17 @@ void MainWindow::AddingStopIntoStreet(){
     double y;
     for(int i = 0; i < streetVector.size(); i++){
         for(int j = 0; j<stopVector.size(); j++){
-            m = (streetVector[i].getStart().getY() - streetVector[i].getEnd().getY())/(streetVector[i].getStart().getX() - streetVector[i].getEnd().getX());
-            x = m*(stopVector[j].getPosition().getX()-streetVector[i].getStart().getX());
-            y = stopVector[j].getPosition().getY()-streetVector[i].getStart().getY();
+            m = (streetVector[i]->getStart().getY() - streetVector[i]->getEnd().getY())/(streetVector[i]->getStart().getX() - streetVector[i]->getEnd().getX());
+            x = m*(stopVector[j].getPosition().getX()-streetVector[i]->getStart().getX());
+            y = stopVector[j].getPosition().getY()-streetVector[i]->getStart().getY();
             x = round(x*100)/100;
             y = round(y*100)/100;
             if(x == y)
             {
-                streetVector[i].insertStop(stopVector[j]);
+                streetVector[i]->insertStop(stopVector[j]);
             }
         }
-        streetVector[i].sortStops();
+        streetVector[i]->sortStops();
     }
 }
 
@@ -88,8 +67,8 @@ void MainWindow::resetDelay(){
         return;
     }
     else{
-        streetVector[DelaydedStreet].setDelay(0);
-        qDebug() << streetVector[DelaydedStreet].getDelay();
+        streetVector[DelaydedStreet]->setDelay(0);
+        qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
 }
 
@@ -99,8 +78,8 @@ void MainWindow::increaseDelay(){
         return;
     }
     else{
-        streetVector[DelaydedStreet].setDelay(streetVector[DelaydedStreet].getDelay()+5);
-        qDebug() << streetVector[DelaydedStreet].getDelay();
+        streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()+10);
+        qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
 }
 
@@ -108,12 +87,12 @@ void MainWindow::decreaseDelay(){
     if(DelaydedStreet == -1){
         return;
     }
-    else if(streetVector[DelaydedStreet].getDelay()==0){
+    else if(streetVector[DelaydedStreet]->getDelay()==0){
         return;
     }
     else{
-        streetVector[DelaydedStreet].setDelay(streetVector[DelaydedStreet].getDelay()-5);
-        qDebug() << streetVector[DelaydedStreet].getDelay();
+        streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()-10);
+        qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
 }
 
@@ -123,14 +102,14 @@ void MainWindow::setPaths(){
     }
 }
 
-void MainWindow::setScene(QVector<Street> streetVector) //klomen
+void MainWindow::setScene(QVector<Street*> streetVector) //klomen
 {
     for(int i = 0; i < streetVector.size();i++)
     {
-        scene->addLine(streetVector[i].getStart().getX(),streetVector[i].getStart().getY(),streetVector[i].getEnd().getX(),streetVector[i].getEnd().getY());
-        for(int j = 0; j < streetVector[i].getSizeOfStopList() ;j++)
+        scene->addLine(streetVector[i]->getStart().getX(),streetVector[i]->getStart().getY(),streetVector[i]->getEnd().getX(),streetVector[i]->getEnd().getY());
+        for(int j = 0; j < streetVector[i]->getSizeOfStopList() ;j++)
         {
-            scene->addEllipse(QRect(streetVector[i].getStopOnPosition(j).getPosition().getX()-4, streetVector[i].getStopOnPosition(j).getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
+            scene->addEllipse(QRect(streetVector[i]->getStopOnPosition(j).getPosition().getX()-4, streetVector[i]->getStopOnPosition(j).getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));
         }
     }
 }
@@ -145,7 +124,6 @@ void MainWindow::startVehicle()
             {
                 vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
                 scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
-                //qDebug() << "start linka:" << it1->pathGetLinkName();
             }
         }
         else{
@@ -153,7 +131,6 @@ void MainWindow::startVehicle()
         {
             vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
             scene->addItem(vehicleVector[vehicleVector.size()-1].getEllipse());
-            //qDebug() << "start linka:" << it1->pathGetLinkName();
         }
         }
     }
@@ -163,7 +140,6 @@ void MainWindow::startVehicle()
     {
         if(it->isAtStart() && it->getDistance() > 100)
         {
-            //qDebug() << "konec linka:" << it->getPath().pathGetLinkName() << it->getDistance() << vehicleVector.size();
             scene->removeItem((*it).getEllipse());
             vehicleVector.erase(it);
             if(vehicleVector.size()==0){

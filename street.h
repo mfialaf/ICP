@@ -5,6 +5,7 @@
 #include <QString>
 #include <QVector>
 #include <stop.h>
+#include <QGraphicsLineItem>
 
 class Street
 {
@@ -23,6 +24,7 @@ public:
     int getSizeOfStopList();
     int getDelay();
     void setDelay(int delay);
+    QGraphicsLineItem* line;
 
 private:
     Coordinate start;

@@ -7,7 +7,7 @@ JsonRead::JsonRead()
 /*
  * Funkce pro zpracovani vstupniho souboru
  */
-void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector, QVector <Path>* pathVector)
+void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVector, QVector <Path>* pathVector)
 {
 
 //    QDir dir = dir.currentPath();
@@ -42,7 +42,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector
         QJsonObject streetAllO= streetArray[i].toObject();
 
         QJsonValue NameV = streetAllO.value(QString("name"));
-        streetVector->append(Street(NameV.toString(), Coordinate(getXorYfrom(streetAllO,"begin","x"),getXorYfrom(streetAllO,"begin","y")), Coordinate(getXorYfrom(streetAllO,"end","x"),getXorYfrom(streetAllO,"end","y"))));
+        streetVector->append(new Street(NameV.toString(), Coordinate(getXorYfrom(streetAllO,"begin","x"),getXorYfrom(streetAllO,"begin","y")), Coordinate(getXorYfrom(streetAllO,"end","x"),getXorYfrom(streetAllO,"end","y"))));
     }
 
     // Stop

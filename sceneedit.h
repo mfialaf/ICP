@@ -16,7 +16,7 @@ class SceneEdit : public QGraphicsScene
     Q_OBJECT
 public:
     explicit SceneEdit(QObject *parent = nullptr);
-    SceneEdit(QGraphicsView* view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet);
+    SceneEdit(QGraphicsView* view, QVector<Vehicle>* vehicleVector, QVector<Street*> streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet);
     void mouseReleaseEvent2(QMouseEvent *event);
     void mousePressEvent2(QMouseEvent *event);
     void mouseMoveEvent2(QMouseEvent *event);
@@ -33,7 +33,7 @@ private slots:
 
 private:
     QVector<Vehicle>* vehicleVector;
-    QVector<Street>* streetVector;
+    QVector<Street*> streetVector;
     QGraphicsSceneMouseEvent* ui;
     QGraphicsView* view;
     Ui::MainWindow uii;

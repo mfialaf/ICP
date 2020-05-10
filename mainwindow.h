@@ -21,13 +21,20 @@ class MainWindow : public QMainWindow
     // POkud chci mit objekt co vysila signaly musi to dedit z QObject
 
 public:
+    QVector<Vehicle> vehicleVector;
+    QVector<Coordinate> coordinateVector;
+    QVector<Stop> stopVector;
+    QVector<Street*> streetVector;
+    QVector<Path> pathVector;
+    QGraphicsScene* scene;
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void StartTime();
     QString TimeSetter();
     void AddingStopIntoStreet();
     void setPaths();
-    void setScene(QVector<Street> streetVector);
+    void setScene(QVector<Street*> streetVector);
     void startVehicle();
     void resetDelay();
     void increaseDelay();
@@ -45,5 +52,10 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    int seconds = 0;
+    int minutes = 0;
+    int hours = 0;
+    int timeupdate = 0;
+    int DelaydedStreet = -1;
 };
 #endif // MAINWINDOW_H

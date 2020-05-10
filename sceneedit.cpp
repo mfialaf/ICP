@@ -11,7 +11,7 @@ SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 
 }
 
-SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street> *streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet)
+SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street*> streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet)
 {
     this->view = view;
     this->vehicleVector = vehicleVector;
@@ -25,7 +25,7 @@ void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
     connect(uii.ButtonDelayPlus, &QPushButton::clicked, this ,&SceneEdit::delayPlus);
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector->begin(); it != vehicleVector->end(); it++) {
-        if(it->visual == vehicle)
+        if(it->getEllipse() == vehicle)
         {
             qDebug() << "Linka cislo: " << it->getPath().pathGetLinkName() << " se zastavkami: ";
             QVector<Stop> stopList = it->getPath().pathGetStopList();
@@ -39,10 +39,9 @@ void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 
 //nefunguje
 void SceneEdit::getStreet(QGraphicsLineItem* street){
-    QVector<Street>:: iterator it;
-    int i = 0;
-    for (it = streetVector->begin(); it != streetVector->end(); it++) {
-        if( it->getStart().getX() == street->line().x1() && it->getEnd().getX() == street->line().x2() && it->getStart().getY() == street->line().y1() && it->getEnd().getY() == street->line().y2() ) {
+    //QVector<Street>:: iterator it;
+    for(int i = 0; i<streetVector.size(); i++){
+        if( streetVector[i]->getStart().getX() == street->line().x1() && streetVector[i]->getEnd().getX() == street->line().x2() && streetVector[i]->getStart().getY() == street->line().y1() && streetVector[i]->getEnd().getY() == street->line().y2() ) {
             if(*PositionOfDelaydedstreet == i){
                 *PositionOfDelaydedstreet = -1;
             }
@@ -52,8 +51,20 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
             //qDebug() << it->getName() << streetVector->size();
             return;
         }
-        i++;
     }
+//    for (it = streetVector.begin(); it != streetVector.end(); it++) {
+//        if( it->getStart().getX() == street->line().x1() && it->getEnd().getX() == street->line().x2() && it->getStart().getY() == street->line().y1() && it->getEnd().getY() == street->line().y2() ) {
+//            if(*PositionOfDelaydedstreet == i){
+//                *PositionOfDelaydedstreet = -1;
+//            }
+//            else{
+//                *PositionOfDelaydedstreet = i;
+//            }
+//            //qDebug() << it->getName() << streetVector->size();
+//            return;
+//        }
+//        i++;
+//    }
 }
 
 void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)

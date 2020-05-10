@@ -17,7 +17,6 @@ public:
     QGraphicsEllipseItem* getEllipse();
     void vehMove(Coordinate coordinate);
     void vehUpdate();
-    QGraphicsEllipseItem *visual;
     bool direction = true; //promenna pro zpetnou cestu, pri false vime ze jede na zpatek
     Path getPath();
     double getDistance();
@@ -30,6 +29,7 @@ private:
     double distance = 0;
     Path path;
     int stopWaiter = 0;
+    QGraphicsEllipseItem *visual;
 
 
 };

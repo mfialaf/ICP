@@ -15,7 +15,7 @@ class JsonRead
 {
 public:
     JsonRead();
-    void ReadJson(QVector<Stop>* stopVector, QVector<Street>* streetVector, QVector <Path>* pathVector);
+    void ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVector, QVector <Path>* pathVector);
     double getXorYfrom(QJsonObject Object, QString name, QString XorY);
 };
 

@@ -17,20 +17,20 @@ public:
     Coordinate getCoordinateByDistance (double distance, bool direction);
     double getPathValue();
     bool stopSameAsPosition(Coordinate coordinate);
-    void setStreetsAndStops(QVector<Street> streetVector);
+    void setStreetsAndStops(QVector<Street*> streetVector);
     Coordinate pathGetStart();
     double pathGetSpeed();
     int getColor();
     int pathGetInterval();
     int pathGetLinkName();
     QVector<Stop> pathGetStopList();
-    Street getStreet(double distance, bool direction);
+    Street* getStreet(double distance, bool direction);
 
 
 private:
     QList<Coordinate> pathList;
     QVector<Stop> stopList;
-    QVector<Street> streetList;
+    QVector<Street*> streetList;
     QVector<QString> streetNames;
     QVector<QString> stopNames;
     double speed;

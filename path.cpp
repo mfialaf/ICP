@@ -37,24 +37,24 @@ QVector<Stop> Path::pathGetStopList()
     return stopList;
 }
 
-Street Path::getStreet(double distance,bool direction)
+Street* Path::getStreet(double distance,bool direction)
 {
     double length = 0;
     if(direction){
         for(int i=0; i<streetList.size(); i++){
-            if(length + getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd()) >= distance){
+            if(length + getDistanceOfCoordinates(streetList[i]->getStart(),streetList[i]->getEnd()) >= distance){
                 return streetList[i];
             }
-            length += getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd());
+            length += getDistanceOfCoordinates(streetList[i]->getStart(),streetList[i]->getEnd());
         }
         return streetList[streetList.size()-1];
     }
     else{
         for(int i=streetList.size()-1; i>=0; i--){
-            if(length + getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd()) >= distance){
+            if(length + getDistanceOfCoordinates(streetList[i]->getStart(),streetList[i]->getEnd()) >= distance){
                 return streetList[i];
             }
-            length += getDistanceOfCoordinates(streetList[i].getStart(),streetList[i].getEnd());
+            length += getDistanceOfCoordinates(streetList[i]->getStart(),streetList[i]->getEnd());
         }
         return streetList[0];
     }
@@ -158,22 +158,22 @@ double Path::getPathValue()
     return size;
 }
 
-void Path::setStreetsAndStops(QVector<Street> streetVector){
+void Path::setStreetsAndStops(QVector<Street*> streetVector){
     int justFirstStartAddedFlag = 1;
     for(int i = 0; i<streetNames.size(); i++){
         for(int j = 0; j<streetVector.size(); j++){
-            if(!QString::compare(streetVector[j].getName(), streetNames[i])){
+            if(!QString::compare(streetVector[j]->getName(), streetNames[i])){
                 if(justFirstStartAddedFlag){
-                    pathList.append(streetVector[j].getStart());
+                    pathList.append(streetVector[j]->getStart());
                     justFirstStartAddedFlag=0;
                 }
-                for(int k = 0; k<streetVector[j].getSizeOfStopList(); k++){
-                    pathList.append(streetVector[j].getStopOnPosition(k).getPosition());
-                    stopNames.append(streetVector[j].getStopOnPosition(k).getName());
-                    stopList.append(streetVector[j].getStopOnPosition(k));
+                for(int k = 0; k<streetVector[j]->getSizeOfStopList(); k++){
+                    pathList.append(streetVector[j]->getStopOnPosition(k).getPosition());
+                    stopNames.append(streetVector[j]->getStopOnPosition(k).getName());
+                    stopList.append(streetVector[j]->getStopOnPosition(k));
 
                 }
-                pathList.append(streetVector[j].getEnd());
+                pathList.append(streetVector[j]->getEnd());
                 streetList.append(streetVector[j]);
             }
         }

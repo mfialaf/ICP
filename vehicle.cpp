@@ -39,8 +39,8 @@ void Vehicle::vehUpdate(){
     else{
         stopWaiter = 0;
     }
-    Street street = path.getStreet(distance, direction);
-    distance+=speed/(150+street.getDelay());
+    Street* street = path.getStreet(distance, direction);
+    distance+=speed/(150+street->getDelay());
     if(distance > path.getPathValue())
     {
         distance = 0;
