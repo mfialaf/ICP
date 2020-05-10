@@ -25,6 +25,7 @@ public:
     int pathGetLinkName();
     QVector<Stop> pathGetStopList();
     Street* getStreet(double distance, bool direction);
+    QVector<Street*> getStreetList();
 
 
 private:
