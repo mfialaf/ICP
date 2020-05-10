@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Vykresleni sceny
     scene = new SceneEdit(ui->graphicsView, &vehicleVector, streetVector,ui, &DelaydedStreet);
+    scene->setBackgroundBrush(Qt::lightGray);
     ui->graphicsView->setScene(scene);
 
 
