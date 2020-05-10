@@ -22,6 +22,7 @@ public:
     Stop getStopOnPosition(int position);
     int getSizeOfStopList();
     int getDelay();
+    void setDelay(int delay);
 
 private:
     Coordinate start;

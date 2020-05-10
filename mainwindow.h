@@ -29,6 +29,9 @@ public:
     void setPaths();
     void setScene(QVector<Street> streetVector);
     void startVehicle();
+    void resetDelay();
+    void increaseDelay();
+    void decreaseDelay();
 
 signals:
     void signalChanged(int val);

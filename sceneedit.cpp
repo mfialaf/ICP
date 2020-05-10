@@ -11,13 +11,13 @@ SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 
 }
 
-SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street>* streetVector, Ui::MainWindow* uii, Street* street)
+SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street> *streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet)
 {
     this->view = view;
     this->vehicleVector = vehicleVector;
     this->streetVector = streetVector;
     this->uii = *uii;
-    this->street = street;
+    this->PositionOfDelaydedstreet = PositionOfDelaydedstreet;
 }
 
 void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
@@ -39,17 +39,18 @@ void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 
 //nefunguje
 void SceneEdit::getStreet(QGraphicsLineItem* street){
-    if(this->street != nullptr){
-        if(this->street->getStart().getX() == street->line().x1() && this->street->getEnd().getX() == street->line().x2() && this->street->getStart().getY() == street->line().y1() && this->street->getEnd().getY() == street->line().y2() ) {
-            this->street = nullptr;
-            return;
-        }
-    }
     QVector<Street>:: iterator it;
     int i = 0;
     for (it = streetVector->begin(); it != streetVector->end(); it++) {
         if( it->getStart().getX() == street->line().x1() && it->getEnd().getX() == street->line().x2() && it->getStart().getY() == street->line().y1() && it->getEnd().getY() == street->line().y2() ) {
-            this->street = streetVector[i].data();
+            if(*PositionOfDelaydedstreet == i){
+                *PositionOfDelaydedstreet = -1;
+            }
+            else{
+                *PositionOfDelaydedstreet = i;
+            }
+            //qDebug() << it->getName() << streetVector->size();
+            return;
         }
         i++;
     }

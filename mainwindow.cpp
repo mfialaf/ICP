@@ -19,7 +19,7 @@ QVector<Stop> stopVector;
 QVector<Street> streetVector;
 QVector<Path> pathVector;
 QGraphicsScene* scene;
-Street* DelaydedStreet;
+int DelaydedStreet = -1;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,15 +27,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
-
     //Marin JsonRead
     JsonRead file;
     file.ReadJson(&stopVector,&streetVector,&pathVector);
 
 
     // Vykresleni sceny
-    scene = new SceneEdit(ui->graphicsView, &vehicleVector, &streetVector,ui, DelaydedStreet);
+    scene = new SceneEdit(ui->graphicsView, &vehicleVector, &streetVector,ui, &DelaydedStreet);
     ui->graphicsView->setScene(scene);
 
 
@@ -45,6 +43,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Co porpojuju, jakej to am signal(F1), ------ , na co to napojuju
     connect(ui->zoomSlider, &QSlider::valueChanged, this ,&MainWindow::zoom);
+    connect(ui->ButtonDelayPlus, &QPushButton::pressed, this, &MainWindow::increaseDelay);
+    connect(ui->ButtonDelayMinus, &QPushButton::pressed, this, &MainWindow::decreaseDelay);
+    connect(ui->ButtonDelayReset, &QPushButton::pressed, this, &MainWindow::resetDelay);
 
 
 
@@ -79,6 +80,40 @@ void MainWindow::AddingStopIntoStreet(){
             }
         }
         streetVector[i].sortStops();
+    }
+}
+
+void MainWindow::resetDelay(){
+    if(DelaydedStreet == -1){
+        return;
+    }
+    else{
+        streetVector[DelaydedStreet].setDelay(0);
+        qDebug() << streetVector[DelaydedStreet].getDelay();
+    }
+}
+
+void MainWindow::increaseDelay(){
+
+    if(DelaydedStreet == -1){
+        return;
+    }
+    else{
+        streetVector[DelaydedStreet].setDelay(streetVector[DelaydedStreet].getDelay()+5);
+        qDebug() << streetVector[DelaydedStreet].getDelay();
+    }
+}
+
+void MainWindow::decreaseDelay(){
+    if(DelaydedStreet == -1){
+        return;
+    }
+    else if(streetVector[DelaydedStreet].getDelay()==0){
+        return;
+    }
+    else{
+        streetVector[DelaydedStreet].setDelay(streetVector[DelaydedStreet].getDelay()-5);
+        qDebug() << streetVector[DelaydedStreet].getDelay();
     }
 }
 
@@ -150,11 +185,6 @@ void MainWindow::TimeUpdate()
         ui->time->setText(TimeSetter());
         timeupdate = 0;
         startVehicle();
-//        if(DelaydedStreet==nullptr){
-//            qDebug() << "HOVNOO";
-//            qDebug() << DelaydedStreet->getName();
-//        }
-
     }
     else{
         timeupdate++;

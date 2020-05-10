@@ -72,3 +72,8 @@ int Street::getSizeOfStopList(){
 int Street::getDelay(){
     return delay;
 }
+
+void Street::setDelay(int delay)
+{
+    this->delay = delay;
+}
