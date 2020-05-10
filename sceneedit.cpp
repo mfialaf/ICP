@@ -9,7 +9,6 @@ int y_ova;
 
 SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 {
-
 }
 
 SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street*> streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet)
@@ -19,22 +18,38 @@ SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVect
     this->streetVector = streetVector;
     this->uii = *uii;
     this->PositionOfDelaydedstreet = PositionOfDelaydedstreet;
+    setLinkNo();
 }
 
-void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
+QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 {
+    bool flag = true;
+    QString output = "Link ";
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector->begin(); it != vehicleVector->end(); it++) {
         if(it->getEllipse() == vehicle)
         {
-            qDebug() << "Linka cislo: " << it->getPath().pathGetLinkName() << " se zastavkami: ";
+            flag = false;
+            output.append(QString::number(it->getPath().pathGetLinkName(),10));
+            output.append('\n');
+
+            //qDebug() << it->getPath().pathGetLinkName() << " se zastavkami: ";
             QVector<Stop> stopList = it->getPath().pathGetStopList();
             QVector<Stop>:: iterator it2;
             for (it2 = stopList.begin(); it2 != stopList.end(); it2++) {
-                qDebug() << it2->getName();
+                output.append(" ->  ");
+                output.append(it2->getName());
+                output.append('\n');
+               // qDebug().noquote() << output;
             }
+           // qDebug() << it->getPath().
         }
     }
+    if(flag)
+    {
+        output = "Link -";
+    }
+    return output;
 }
 
 void SceneEdit::getStreet(QGraphicsLineItem* street){
@@ -66,6 +81,13 @@ void SceneEdit::resetMarkedLine()
     }
 }
 
+void SceneEdit::setLinkNo()
+{
+    this->uii.VehicleData->setFontWeight(3);
+    this->uii.VehicleData->setText("Link -");
+    this->uii.VehicleData->setAlignment(Qt::AlignCenter);
+}
+
 void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     for(auto* item: items(event->scenePos()) )
@@ -75,12 +97,14 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             resetMarkedLine();
             //qDebug() << "auto" << vehicleVector[0].data()->visual << "kliknuto na" << vehicle;
-            printLink(vehicle);
+            uii.VehicleData->setText(printLink(vehicle));
+            uii.VehicleData->setAlignment(Qt::AlignCenter);
             return;
         }
         else if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
         {
             getStreet(street);
+            setLinkNo();
             return;
         }
         else
@@ -90,6 +114,7 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
     resetMarkedLine();
+    setLinkNo();
 
     QGraphicsScene::mousePressEvent(event);
 }

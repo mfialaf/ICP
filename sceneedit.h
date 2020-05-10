@@ -20,9 +20,10 @@ public:
     void mouseReleaseEvent2(QMouseEvent *event);
     void mousePressEvent2(QMouseEvent *event);
     void mouseMoveEvent2(QMouseEvent *event);
-    void printLink(QGraphicsEllipseItem* vehicle);
+    QString printLink(QGraphicsEllipseItem* vehicle);
     void getStreet(QGraphicsLineItem* street);
     void resetMarkedLine();
+    void setLinkNo();
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
