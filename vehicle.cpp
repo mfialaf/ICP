@@ -12,6 +12,8 @@ Vehicle::Vehicle(Coordinate position, double speed, Path path, int color)
 {
     if(speed>90)
         speed = 90;
+    if(speed<50)
+        speed = 50;
 
     this->speed = speed;
     this->position = position;
@@ -34,15 +36,19 @@ void Vehicle::vehMove(Coordinate coordinate){
 }
 
 void Vehicle::vehUpdate(){
-    if(path.stopSameAsPosition(position) && stopWaiter != 20){
+    if(path.stopSameAsPosition(position) && stopWaiter != 300 && countWait == 0){
         stopWaiter++;
         return;
     }
     else{
+        countWait++;
         stopWaiter = 0;
     }
+    if(!path.stopSameAsPosition(position) && countWait != 0){
+        countWait = 0;
+    }
     Street* street = path.getStreetWithVehicle(distance, direction);
-    distance+=speed/(150+street->getDelay());
+    distance+=speed/(200+street->getDelay());
     if(distance > path.getPathValue())
     {
         distance = 0;

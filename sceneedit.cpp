@@ -91,7 +91,7 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
             QVector<Street*> tmpList =  it->getPath().getStreetList();
             for(int i = 0; i < tmpList.size(); i++)
             {
-                tmpList[i]->line->setPen(QPen(QColor(Qt::green),2));
+                tmpList[i]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::green),2));
             }
 
         }
@@ -111,7 +111,7 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
     for(int i = 0; i<streetVector.size(); i++){
         if( streetVector[i]->getStart().getX() == street->line().x1() && streetVector[i]->getEnd().getX() == street->line().x2() && streetVector[i]->getStart().getY() == street->line().y1() && streetVector[i]->getEnd().getY() == street->line().y2() ) {
             if(*PositionOfDelaydedstreet == i){
-                streetVector[i]->line->setPen(QPen(QColor(Qt::black),2));
+                streetVector[i]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::black),2));
                 *PositionOfDelaydedstreet = -1;
                 uii.streetName->setText("");
                 uii.printDelay->setText("");
@@ -119,9 +119,9 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
             else{
                 if(*PositionOfDelaydedstreet != -1)
                 {
-                    streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
+                    streetVector[*PositionOfDelaydedstreet]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::black),2));
                 }
-                streetVector[i]->line->setPen(QPen(QColor(Qt::red),2));
+                streetVector[i]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::red),2));
                 uii.streetName->setAlignment(Qt::AlignCenter);
                 uii.printDelay->setAlignment(Qt::AlignCenter);
                 uii.streetName->setText(streetVector[i]->getName());
@@ -145,7 +145,7 @@ void SceneEdit::resetMarkedLine()
 {
     if(*PositionOfDelaydedstreet != -1)
     {
-        streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
+        streetVector[*PositionOfDelaydedstreet]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::black),2));
         *PositionOfDelaydedstreet = -1;
         uii.streetName->setText("");
         uii.printDelay->setText("");
@@ -172,7 +172,7 @@ void SceneEdit::resetStreets()
 {
     for(int i = 0; i < streetVector.size(); i++)
     {
-        streetVector[i]->line->setPen(QPen(QColor(Qt::black),2));
+        streetVector[i]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::black),2));
     }
 }
 

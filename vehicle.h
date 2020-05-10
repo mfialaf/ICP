@@ -30,6 +30,7 @@ private:
     Path path;
     int stopWaiter = 0;
     QGraphicsEllipseItem *visual;
+    int countWait = 0;
 
 
 };

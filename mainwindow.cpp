@@ -242,7 +242,7 @@ void MainWindow::setScene(QVector<Street*> streetVector) //klomen
 {
     for(int i = 0; i < streetVector.size();i++)
     {
-        scene->addItem(streetVector[i]->line);
+        scene->addItem(streetVector[i]->getStreetAsQraphicsLine());
         for(int j = 0; j < streetVector[i]->getSizeOfStopList() ;j++)
         {
             scene->addEllipse(QRect(streetVector[i]->getStopOnPosition(j).getPosition().getX()-4, streetVector[i]->getStopOnPosition(j).getPosition().getY()-4, 8, 8), QPen(16728320), QBrush(QColor(16728320)));

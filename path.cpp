@@ -88,6 +88,8 @@ Street* Path::getStreetWithVehicle(double distance,bool direction)
         return streetList[0];
     }
 }
+/// Pomocí ujeté vzdálenosti
+///
 
 QVector<Street *> Path::getStreetList()
 {
