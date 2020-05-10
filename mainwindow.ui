@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(26, 23, 23);
+color: rgb(186, 186, 186);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="5" column="0" colspan="3">
@@ -373,6 +377,9 @@
       <property name="autoFillBackground">
        <bool>true</bool>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(80, 69, 69);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -505,6 +512,9 @@
         <property name="maximum">
          <number>100</number>
         </property>
+        <property name="sliderPosition">
+         <number>50</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -544,6 +554,9 @@
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(80, 69, 69);</string>
       </property>
       <property name="readOnly">
        <bool>true</bool>
