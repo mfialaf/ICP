@@ -6,11 +6,22 @@ bool rightMousePressed;
 int x_ova;
 int y_ova;
 
-
+/**
+ * @brief SceneEdit::SceneEdit defaultni konstruktor
+ * @param parent rodic typu QParent
+ */
 SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 {
 }
 
+/**
+ * @brief SceneEdit::SceneEdit konstriktor
+ * @param view
+ * @param vehicleVector
+ * @param streetVector
+ * @param uii
+ * @param PositionOfDelaydedstreet
+ */
 SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVector<Street*> streetVector, Ui::MainWindow* uii, int* PositionOfDelaydedstreet)
 {
     this->view = view;
@@ -21,6 +32,11 @@ SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVect
     setLinkInfo();
 }
 
+/**
+ * @brief SceneEdit::printLink
+ * @param vehicle
+ * @return vraci
+ */
 QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 {
     bool flag = true;
@@ -155,6 +171,7 @@ void SceneEdit::setLinkInfo()
     this->uii.VehicleData->setText(output);
     this->uii.VehicleData->setAlignment(Qt::AlignCenter);
     this->uii.TimeTable->setFontWeight(3);
+    this->uii.TimeTable->clear();
 }
 
 void SceneEdit::resetStreets()
