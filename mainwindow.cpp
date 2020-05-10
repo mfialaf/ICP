@@ -216,6 +216,10 @@ void MainWindow::decreaseSecond()
 
 void MainWindow::setNewTime()
 {
+    this->seconds = (static_cast<int>(ui->second->text().toDouble())-1);
+    this->minutes = static_cast<int>(ui->minute->text().toDouble());
+    this->hours = static_cast<int>(ui->hour->text().toDouble());
+    ui->time->setText(TimeSetter());
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector.begin(); it != vehicleVector.end(); it++)
     {
@@ -226,10 +230,6 @@ void MainWindow::setNewTime()
         }
         it--;
     }
-    this->seconds = static_cast<int>(ui->second->text().toDouble());
-    this->minutes = static_cast<int>(ui->minute->text().toDouble());
-    this->hours = static_cast<int>(ui->hour->text().toDouble());
-//    qDebug() << hours << minutes << seconds;
 }
 
 void MainWindow::setPaths(){
