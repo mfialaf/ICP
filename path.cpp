@@ -61,6 +61,11 @@ Street* Path::getStreet(double distance,bool direction)
 
 }
 
+QVector<Street *> Path::getStreetList()
+{
+    return streetList;
+}
+
 int Path::pathGetLinkName()
 {
     return pathNumber;

@@ -23,7 +23,8 @@ public:
     QString printLink(QGraphicsEllipseItem* vehicle);
     void getStreet(QGraphicsLineItem* street);
     void resetMarkedLine();
-    void setLinkNo();
+    void setLinkInfo();
+    void resetStreets();
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

@@ -18,7 +18,7 @@ SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVect
     this->streetVector = streetVector;
     this->uii = *uii;
     this->PositionOfDelaydedstreet = PositionOfDelaydedstreet;
-    setLinkNo();
+    setLinkInfo();
 }
 
 QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
@@ -32,6 +32,8 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
             flag = false;
             output.append(QString::number(it->getPath().pathGetLinkName(),10));
             output.append('\n');
+            output.append("Stops: ");
+            output.append('\n');
 
             //qDebug() << it->getPath().pathGetLinkName() << " se zastavkami: ";
             QVector<Stop> stopList = it->getPath().pathGetStopList();
@@ -42,12 +44,22 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
                 output.append('\n');
                // qDebug().noquote() << output;
             }
-           // qDebug() << it->getPath().
+
+            qDebug() << it->getPath().getStreetList().size();
+            QVector<Street*> tmpList =  it->getPath().getStreetList();
+            for(int i = 0; i < tmpList.size(); i++)
+            {
+                tmpList[i]->line->setPen(QPen(QColor(Qt::green),2));
+            }
+
         }
     }
     if(flag)
     {
         output = "Link -";
+        output.append('\n');
+        output.append('\n');
+        output.append(" Click on vehicle for info");
     }
     return output;
 }
@@ -81,11 +93,23 @@ void SceneEdit::resetMarkedLine()
     }
 }
 
-void SceneEdit::setLinkNo()
+void SceneEdit::setLinkInfo()
 {
+    QString output = "Link -";
+    output.append('\n');
+    output.append('\n');
+    output.append(" Click on vehicle for info");
     this->uii.VehicleData->setFontWeight(3);
-    this->uii.VehicleData->setText("Link -");
+    this->uii.VehicleData->setText(output);
     this->uii.VehicleData->setAlignment(Qt::AlignCenter);
+}
+
+void SceneEdit::resetStreets()
+{
+    for(int i = 0; i < streetVector.size(); i++)
+    {
+        streetVector[i]->line->setPen(QPen(QColor(Qt::black),2));
+    }
 }
 
 void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -103,8 +127,9 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
         {
+            resetStreets();
             getStreet(street);
-            setLinkNo();
+            setLinkInfo();
             return;
         }
         else
@@ -114,7 +139,8 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
     resetMarkedLine();
-    setLinkNo();
+    setLinkInfo();
+    resetStreets();
 
     QGraphicsScene::mousePressEvent(event);
 }
