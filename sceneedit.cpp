@@ -1,13 +1,7 @@
 #include "sceneedit.h"
-#include <vehicle.h>
-#include<QPen>
-
-bool rightMousePressed;
-int x_ova;
-int y_ova;
 
 /**
- * @brief SceneEdit::SceneEdit defaultni konstruktor
+ * @brief SceneEdit::SceneEdit defaultní konstruktor
  * @param parent rodic typu QParent
  */
 SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
@@ -15,7 +9,7 @@ SceneEdit::SceneEdit(QObject *parent) : QGraphicsScene(parent)
 }
 
 /**
- * @brief SceneEdit::SceneEdit konstriktor
+ * @brief SceneEdit::SceneEdit konstruktor
  * @param view
  * @param vehicleVector
  * @param streetVector
@@ -33,9 +27,9 @@ SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVect
 }
 
 /**
- * @brief SceneEdit::printLink
- * @param vehicle
- * @return vraci
+ * @brief SceneEdit::printLink Nastaví výpis zastávek dané linky + jizdní řád z výchozí stanice.
+ * @param vehicle konkretní vozidlo
+ * @return Vraci string vypisující linku a všechny její zastávky.
  */
 QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 {
@@ -54,30 +48,24 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
             QVector<Stop> stopList = it->getPath().pathGetStopList();
             QVector<Stop>:: iterator it2;
             for (it2 = stopList.begin(); it2 != stopList.end(); it2++) {
-                output.append(" ->  ");
-                output.append(it2->getName());
-                output.append('\n');
+                output.append(" ->  " + it2->getName() + '\n');
             }
 
             //output.append("\n\n\nStarting station timetable:\n");
             for(int i = 0; i < 6; i++)
             {
-                timetable.append(QString::number(i));
-                timetable.append(": 00 30 \n");
+                timetable.append(QString::number(i)+": 00 30 \n");
             }
             for(int i = 6; i< 23; i++)
             {
-                timetable.append(QString::number(i));
-                timetable.append(": ");
+                timetable.append(QString::number(i)+ ": ");
                 if(it->getPath().pathGetInterval() == 1)
                 {
                     timetable.append("every minute");
                 }
                 else if(it->getPath().pathGetInterval() == 2 || it->getPath().pathGetInterval() == 3)
                 {
-                    timetable.append("every ");
-                    timetable.append(QString::number(it->getPath().pathGetInterval()));
-                    timetable.append(" minutes");
+                    timetable.append("every "+QString::number(it->getPath().pathGetInterval())+" minutes");
                 }
                 else
                 {
@@ -90,8 +78,7 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
                             {
                                 timetable.append("0");
                             }
-                                timetable.append(QString::number(j));
-                                timetable.append(" ");
+                                timetable.append(QString::number(j)+" ");
                         }
                     }
                 }
@@ -111,14 +98,15 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
     }
     if(flag)
     {
-        output = "Link -";
-        output.append('\n');
-        output.append('\n');
-        output.append(" Click on vehicle for info");
+        output.append("Link -\n\n Click on vehicle for info");
     }
     return output;
 }
 
+/**
+ * @brief SceneEdit::getStreet
+ * @param street
+ */
 void SceneEdit::getStreet(QGraphicsLineItem* street){
     for(int i = 0; i<streetVector.size(); i++){
         if( streetVector[i]->getStart().getX() == street->line().x1() && streetVector[i]->getEnd().getX() == street->line().x2() && streetVector[i]->getStart().getY() == street->line().y1() && streetVector[i]->getEnd().getY() == street->line().y2() ) {
@@ -150,6 +138,9 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
     }
 }
 
+/**
+ * @brief SceneEdit::resetMarkedLine Po odznačení ulice vrátí barvu na černou.
+ */
 void SceneEdit::resetMarkedLine()
 {
     if(*PositionOfDelaydedstreet != -1)
@@ -160,13 +151,13 @@ void SceneEdit::resetMarkedLine()
         uii.printDelay->setText("");
     }
 }
-
+/**
+ * @brief SceneEdit::setLinkInfo Při neaktivním výpísu linky nastavi úvodní text.
+ */
 void SceneEdit::setLinkInfo()
 {
     QString output = "Link -";
-    output.append('\n');
-    output.append('\n');
-    output.append(" Click on vehicle for info");
+    output.append("\n\n Click on vehicle for info");
     this->uii.VehicleData->setFontWeight(3);
     this->uii.VehicleData->setText(output);
     this->uii.VehicleData->setAlignment(Qt::AlignCenter);
@@ -174,6 +165,9 @@ void SceneEdit::setLinkInfo()
     this->uii.TimeTable->clear();
 }
 
+/**
+ * @brief SceneEdit::resetStreets Přebarví všechny ulice na úvodní barvu černou.
+ */
 void SceneEdit::resetStreets()
 {
     for(int i = 0; i < streetVector.size(); i++)
@@ -182,8 +176,14 @@ void SceneEdit::resetStreets()
     }
 }
 
+/**
+ * @brief SceneEdit::mousePressEvent Zachycuje kliknutí na jednotlivé objekty ve scéně.
+ * @param event kliknutí myši
+ */
 void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    /// Po kliknutí na objekt vyhodntí zda-il bylo kliknuto na vozidlo nebo ulici a zavolá příslušnou funkci.
+    /// Také se stará o případně přebarení ulic.
     for(auto* item: items(event->scenePos()) )
     {
         auto vehicle =  dynamic_cast<QGraphicsEllipseItem*>(item);
@@ -206,7 +206,6 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         else
         {
             resetMarkedLine();
-            qDebug() << "jinde";
         }
     }
     resetMarkedLine();
@@ -215,41 +214,3 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     QGraphicsScene::mousePressEvent(event);
 }
-
-//void SceneEdit::mousePressEvent2(QMouseEvent *event){
-//    if (event->button() == Qt::RightButton)
-//    {
-//        rightMousePressed = true;
-//        _panStartX = event->x();
-//        _panStartY = event->y();
-//        //setCursor(Qt::ClosedHandCursor);
-//        event->accept();
-//        return;
-//    }
-//}
-
-//void SceneEdit::mouseReleaseEvent2(QMouseEvent *event){
-//    if (event->button() == Qt::RightButton)
-//    {
-//        rightMousePressed = false;
-//       //    setCursor(Qt::ArrowCursor);
-//        event->accept();
-//        event->buttons();
-//        return;
-//    }
-//    event->ignore();
-//}
-
-//void SceneEdit::mouseMoveEvent2(QMouseEvent *event){
-//    if (rightMousePressed)
-//    {
-//        ui->horizontalScrollBar()->setValue(ui->horizontalScrollBar()->value() - (event->x() - x_ova));
-//       // verticalScrollBar()->setValue(verticalScrollBar()->value() - (event->y() - y_ova));
-//        _panStartX = event->x();
-//        _panStartY = event->y();
-//        event->accept();
-//        return;
-//    }
-//    event->ignore();
-
-//}
