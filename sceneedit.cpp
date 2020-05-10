@@ -1,5 +1,6 @@
 #include "sceneedit.h"
 #include <vehicle.h>
+#include<QPen>
 
 bool rightMousePressed;
 int x_ova;
@@ -22,7 +23,6 @@ SceneEdit::SceneEdit(QGraphicsView *view, QVector<Vehicle>* vehicleVector, QVect
 
 void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 {
-    connect(uii.ButtonDelayPlus, &QPushButton::clicked, this ,&SceneEdit::delayPlus);
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector->begin(); it != vehicleVector->end(); it++) {
         if(it->getEllipse() == vehicle)
@@ -37,34 +37,24 @@ void SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
     }
 }
 
-//nefunguje
 void SceneEdit::getStreet(QGraphicsLineItem* street){
-    //QVector<Street>:: iterator it;
     for(int i = 0; i<streetVector.size(); i++){
         if( streetVector[i]->getStart().getX() == street->line().x1() && streetVector[i]->getEnd().getX() == street->line().x2() && streetVector[i]->getStart().getY() == street->line().y1() && streetVector[i]->getEnd().getY() == street->line().y2() ) {
             if(*PositionOfDelaydedstreet == i){
+                streetVector[i]->line->setPen(QPen(QColor(Qt::black),2));
                 *PositionOfDelaydedstreet = -1;
             }
             else{
+                if(*PositionOfDelaydedstreet != -1)
+                {
+                    streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
+                }
+                streetVector[i]->line->setPen(QPen(QColor(Qt::red),2));
                 *PositionOfDelaydedstreet = i;
             }
-            //qDebug() << it->getName() << streetVector->size();
             return;
         }
     }
-//    for (it = streetVector.begin(); it != streetVector.end(); it++) {
-//        if( it->getStart().getX() == street->line().x1() && it->getEnd().getX() == street->line().x2() && it->getStart().getY() == street->line().y1() && it->getEnd().getY() == street->line().y2() ) {
-//            if(*PositionOfDelaydedstreet == i){
-//                *PositionOfDelaydedstreet = -1;
-//            }
-//            else{
-//                *PositionOfDelaydedstreet = i;
-//            }
-//            //qDebug() << it->getName() << streetVector->size();
-//            return;
-//        }
-//        i++;
-//    }
 }
 
 void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -80,21 +70,20 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
         {
             getStreet(street);
+            return;
         }
         else
         {
             qDebug() << "jinde";
         }
     }
-    // uii.time->setText("hovnohovnohovno");
+    if(*PositionOfDelaydedstreet != -1)
+    {
+        streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
+        *PositionOfDelaydedstreet = -1;
+    }
 
     QGraphicsScene::mousePressEvent(event);
-}
-void SceneEdit::delayPlus()
-{
-    qDebug() << "clicked";
-    qDebug() << "clicked2";
-
 }
 //void SceneEdit::mousePressEvent2(QMouseEvent *event){
 //    if (event->button() == Qt::RightButton)

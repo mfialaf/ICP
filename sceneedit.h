@@ -29,7 +29,6 @@ protected:
 signals:
 
 private slots:
-    void delayPlus();
 
 private:
     QVector<Vehicle>* vehicleVector;

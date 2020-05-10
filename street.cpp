@@ -1,6 +1,7 @@
 #include "street.h"
 #include <QDebug>
 #include <math.h>
+#include <QPen>
 
 Street::Street(){}
 
@@ -10,7 +11,7 @@ Street::Street(QString name, Coordinate start, Coordinate end){
     this->name = name;
     this->line = new QGraphicsLineItem();
     this->line->setLine(start.getX(), start.getY(), end.getX(), end.getY());
-    this->line->setPen();
+    this->line->setPen(QPen(QColor(Qt::black), 2));
 }
 
 Coordinate Street::getStart(){
