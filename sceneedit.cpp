@@ -31,9 +31,7 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
         {
             flag = false;
             output.append(QString::number(it->getPath().pathGetLinkName(),10));
-            output.append('\n');
-            output.append("Stops: ");
-            output.append('\n');
+            output.append("\n\nStops: \n");
 
             //qDebug() << it->getPath().pathGetLinkName() << " se zastavkami: ";
             QVector<Stop> stopList = it->getPath().pathGetStopList();
@@ -42,8 +40,30 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
                 output.append(" ->  ");
                 output.append(it2->getName());
                 output.append('\n');
-               // qDebug().noquote() << output;
             }
+            output.append("\n\n\nStarting station timetable:\n");
+            for(int i = 0; i < 6; i++)
+            {
+                output.append(QString::number(i));
+                output.append(": 00 30 \n");
+            }
+            for(int i = 6; i< 23; i++)
+            {
+                output.append(QString::number(i));
+                output.append(": ");
+                for(int j = 0; j < 59; j++)
+                {
+                    //output.append(QString::number((i*60+j) % (it->getPath().pathGetInterval)()));
+                    if((((i-6)*60+j) % (it->getPath().pathGetInterval)()) == 0)
+                    {
+                        output.append(QString::number(j));
+                        output.append(" ");
+                    }
+                }
+                output.append("\n");
+            }
+            output.append("23: 00 30 \n");
+
 
             qDebug() << it->getPath().getStreetList().size();
             QVector<Street*> tmpList =  it->getPath().getStreetList();
@@ -119,6 +139,7 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         auto vehicle =  dynamic_cast<QGraphicsEllipseItem*>(item);
         if ( vehicle != nullptr)
         {
+            resetStreets();
             resetMarkedLine();
             //qDebug() << "auto" << vehicleVector[0].data()->visual << "kliknuto na" << vehicle;
             uii.VehicleData->setText(printLink(vehicle));
