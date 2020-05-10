@@ -77,7 +77,7 @@ void MainWindow::resetDelay(){
     }
     else{
         streetVector[DelaydedStreet]->setDelay(0);
-        qDebug() << streetVector[DelaydedStreet]->getDelay();
+        //qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
 }
 
@@ -88,7 +88,7 @@ void MainWindow::increaseDelay(){
     }
     else{
         streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()+200);
-        qDebug() << streetVector[DelaydedStreet]->getDelay();
+        //qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
 }
 
@@ -101,7 +101,7 @@ void MainWindow::decreaseDelay(){
     }
     else{
         streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()-200);
-        qDebug() << streetVector[DelaydedStreet]->getDelay();
+        //qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
 }
 

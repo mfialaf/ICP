@@ -20,6 +20,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
 //    canonical.replace("build_mhd_projekt","mhd_projekt");
 //    qDebug() << "cesta" << canonical;
 
+    srand ( time(NULL) );
     QString val;
     QFile file;
     file.setFileName("../inputFile.json");

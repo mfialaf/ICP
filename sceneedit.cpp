@@ -25,6 +25,7 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
 {
     bool flag = true;
     QString output = "Link ";
+    QString timetable = "Starting station timetable:\n";
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector->begin(); it != vehicleVector->end(); it++) {
         if(it->getEllipse() == vehicle)
@@ -41,25 +42,26 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
                 output.append(it2->getName());
                 output.append('\n');
             }
-            output.append("\n\n\nStarting station timetable:\n");
+
+            //output.append("\n\n\nStarting station timetable:\n");
             for(int i = 0; i < 6; i++)
             {
-                output.append(QString::number(i));
-                output.append(": 00 30 \n");
+                timetable.append(QString::number(i));
+                timetable.append(": 00 30 \n");
             }
             for(int i = 6; i< 23; i++)
             {
-                output.append(QString::number(i));
-                output.append(": ");
+                timetable.append(QString::number(i));
+                timetable.append(": ");
                 if(it->getPath().pathGetInterval() == 1)
                 {
-                    output.append("every minute");
+                    timetable.append("every minute");
                 }
                 else if(it->getPath().pathGetInterval() == 2 || it->getPath().pathGetInterval() == 3)
                 {
-                    output.append("every ");
-                    output.append(QString::number(it->getPath().pathGetInterval()));
-                    output.append(" minutes");
+                    timetable.append("every ");
+                    timetable.append(QString::number(it->getPath().pathGetInterval()));
+                    timetable.append(" minutes");
                 }
                 else
                 {
@@ -70,19 +72,19 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
                         {
                             if(j<10)
                             {
-                                output.append("0");
+                                timetable.append("0");
                             }
-                                output.append(QString::number(j));
-                                output.append(" ");
+                                timetable.append(QString::number(j));
+                                timetable.append(" ");
                         }
                     }
                 }
-                output.append("\n");
+                timetable.append("\n");
             }
-            output.append("23: 00 30 \n");
+            timetable.append("23: 00 30 \n");
+            uii.TimeTable->setText(timetable);
 
-
-            qDebug() << it->getPath().getStreetList().size();
+            //qDebug() << it->getPath().getStreetList().size();
             QVector<Street*> tmpList =  it->getPath().getStreetList();
             for(int i = 0; i < tmpList.size(); i++)
             {
@@ -139,6 +141,7 @@ void SceneEdit::setLinkInfo()
     this->uii.VehicleData->setFontWeight(3);
     this->uii.VehicleData->setText(output);
     this->uii.VehicleData->setAlignment(Qt::AlignCenter);
+    this->uii.TimeTable->setFontWeight(3);
 }
 
 void SceneEdit::resetStreets()
