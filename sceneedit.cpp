@@ -57,6 +57,15 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
     }
 }
 
+void SceneEdit::resetMarkedLine()
+{
+    if(*PositionOfDelaydedstreet != -1)
+    {
+        streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
+        *PositionOfDelaydedstreet = -1;
+    }
+}
+
 void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     for(auto* item: items(event->scenePos()) )
@@ -64,27 +73,27 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         auto vehicle =  dynamic_cast<QGraphicsEllipseItem*>(item);
         if ( vehicle != nullptr)
         {
+            resetMarkedLine();
             //qDebug() << "auto" << vehicleVector[0].data()->visual << "kliknuto na" << vehicle;
             printLink(vehicle);
+            return;
         }
-        if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
+        else if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
         {
             getStreet(street);
             return;
         }
         else
         {
+            resetMarkedLine();
             qDebug() << "jinde";
         }
     }
-    if(*PositionOfDelaydedstreet != -1)
-    {
-        streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
-        *PositionOfDelaydedstreet = -1;
-    }
+    resetMarkedLine();
 
     QGraphicsScene::mousePressEvent(event);
 }
+
 //void SceneEdit::mousePressEvent2(QMouseEvent *event){
 //    if (event->button() == Qt::RightButton)
 //    {

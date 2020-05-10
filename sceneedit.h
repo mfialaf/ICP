@@ -22,6 +22,7 @@ public:
     void mouseMoveEvent2(QMouseEvent *event);
     void printLink(QGraphicsEllipseItem* vehicle);
     void getStreet(QGraphicsLineItem* street);
+    void resetMarkedLine();
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
