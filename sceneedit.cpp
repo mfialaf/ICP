@@ -51,13 +51,30 @@ QString SceneEdit::printLink(QGraphicsEllipseItem *vehicle)
             {
                 output.append(QString::number(i));
                 output.append(": ");
-                for(int j = 0; j < 59; j++)
+                if(it->getPath().pathGetInterval() == 1)
                 {
-                    //output.append(QString::number((i*60+j) % (it->getPath().pathGetInterval)()));
-                    if((((i-6)*60+j) % (it->getPath().pathGetInterval)()) == 0)
+                    output.append("every minute");
+                }
+                else if(it->getPath().pathGetInterval() == 2 || it->getPath().pathGetInterval() == 3)
+                {
+                    output.append("every ");
+                    output.append(QString::number(it->getPath().pathGetInterval()));
+                    output.append(" minutes");
+                }
+                else
+                {
+                    for(int j = 0; j < 59; j++)
                     {
-                        output.append(QString::number(j));
-                        output.append(" ");
+                        //output.append(QString::number((i*60+j) % (it->getPath().pathGetInterval)()));
+                        if((((i-6)*60+j) % (it->getPath().pathGetInterval)()) == 0)
+                        {
+                            if(j<10)
+                            {
+                                output.append("0");
+                            }
+                                output.append(QString::number(j));
+                                output.append(" ");
+                        }
                     }
                 }
                 output.append("\n");
