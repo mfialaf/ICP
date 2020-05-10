@@ -254,7 +254,7 @@ void MainWindow::startVehicle()
     QVector<Path>::iterator it1;
     for (it1 = pathVector.begin(); it1 != pathVector.end(); it1++)
     {
-        if(hours > 6 && hours < 23){
+        if(hours > 5 && hours < 23){
             if ((((hours-6) * 60 + minutes) % it1->pathGetInterval() == 0) && seconds == 0)
             {
                 vehicleVector.append(Vehicle((*it1).pathGetStart(), (*it1).pathGetSpeed(), (*it1), (*it1).getColor()));
