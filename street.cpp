@@ -122,3 +122,8 @@ void Street::setDelay(int delay)
 {
     this->delay = delay;
 }
+
+QGraphicsLineItem *Street::getStreetAsQraphicsLine()
+{
+    return line;
+}

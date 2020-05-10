@@ -5,6 +5,8 @@
 #include <coordinate.h>
 #include <stop.h>
 #include <street.h>
+#include <math.h>
+#include <QDebug>
 
 class Path
 {
@@ -24,7 +26,7 @@ public:
     int pathGetInterval();
     int pathGetLinkName();
     QVector<Stop> pathGetStopList();
-    Street* getStreet(double distance, bool direction);
+    Street* getStreetWithVehicle(double distance, bool direction);
     QVector<Street*> getStreetList();
 
 
