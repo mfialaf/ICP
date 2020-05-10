@@ -10,6 +10,8 @@
 #include <QGraphicsView>
 #include "ui_mainwindow.h"
 #include "mainwindow.h"
+#include <vehicle.h>
+#include <QPen>
 
 class SceneEdit : public QGraphicsScene
 {
@@ -28,10 +30,6 @@ public:
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-
-signals:
-
-private slots:
 
 private:
     QVector<Vehicle>* vehicleVector;

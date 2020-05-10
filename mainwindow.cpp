@@ -225,9 +225,9 @@ void MainWindow::setNewTime()
         }
         it--;
     }
-    seconds = static_cast<int>(ui->second->text().toDouble());
-    minutes = static_cast<int>(ui->minute->text().toDouble());
-    hours = static_cast<int>(ui->hour->text().toDouble());
+    this->seconds = static_cast<int>(ui->second->text().toDouble());
+    this->minutes = static_cast<int>(ui->minute->text().toDouble());
+    this->hours = static_cast<int>(ui->hour->text().toDouble());
 //    qDebug() << hours << minutes << seconds;
 }
 
