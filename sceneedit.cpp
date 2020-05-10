@@ -113,8 +113,8 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
             if(*PositionOfDelaydedstreet == i){
                 streetVector[i]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::black),2));
                 *PositionOfDelaydedstreet = -1;
-                uii.streetName->setText("");
-                uii.printDelay->setText("");
+                uii.streetName->setText("Click on street for name");
+                uii.printDelay->setText("Click on street for delay");
             }
             else{
                 if(*PositionOfDelaydedstreet != -1)
@@ -147,8 +147,8 @@ void SceneEdit::resetMarkedLine()
     {
         streetVector[*PositionOfDelaydedstreet]->getStreetAsQraphicsLine()->setPen(QPen(QColor(Qt::black),2));
         *PositionOfDelaydedstreet = -1;
-        uii.streetName->setText("");
-        uii.printDelay->setText("");
+        uii.streetName->setText("Click on street for name");
+        uii.printDelay->setText("Click on street for delay");
     }
 }
 /**
@@ -163,6 +163,10 @@ void SceneEdit::setLinkInfo()
     this->uii.VehicleData->setAlignment(Qt::AlignCenter);
     this->uii.TimeTable->setFontWeight(3);
     this->uii.TimeTable->clear();
+    this->uii.printDelay->setAlignment(Qt::AlignCenter);
+    this->uii.streetName->setAlignment(Qt::AlignCenter);
+    this->uii.streetName->setText("Click on street for name");
+    this->uii.printDelay->setText("Click on street for delay");
 }
 
 /**
@@ -199,8 +203,8 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         else if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
         {
             resetStreets();
-            getStreet(street);
             setLinkInfo();
+            getStreet(street);
             return;
         }
         else
