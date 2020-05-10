@@ -39,6 +39,13 @@ public:
     void resetDelay();
     void increaseDelay();
     void decreaseDelay();
+    void increaseHour();
+    void decreaseHour();
+    void increaseMinute();
+    void decreaseMinute();
+    void increaseSecond();
+    void decreaseSecond();
+    void setNewTime();
 
 signals:
     void signalChanged(int val);

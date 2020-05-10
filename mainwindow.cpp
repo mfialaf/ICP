@@ -35,6 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->ButtonDelayMinus, &QPushButton::pressed, this, &MainWindow::decreaseDelay);
     connect(ui->ButtonDelayReset, &QPushButton::pressed, this, &MainWindow::resetDelay);
 
+    connect(ui->ButtonHourUp, &QPushButton::pressed, this, &MainWindow::increaseHour);
+    connect(ui->ButtonHourDown, &QPushButton::pressed, this, &MainWindow::decreaseHour);
+    connect(ui->ButtonMinuteUp, &QPushButton::pressed, this, &MainWindow::increaseMinute);
+    connect(ui->ButtonMinuteDown, &QPushButton::pressed, this, &MainWindow::decreaseMinute);
+    connect(ui->ButtonSecondUp, &QPushButton::pressed, this, &MainWindow::increaseSecond);
+    connect(ui->ButtonSecondDown, &QPushButton::pressed, this, &MainWindow::decreaseSecond);
+    connect(ui->setTime, &QPushButton::pressed, this, &MainWindow::setNewTime);
+
     StartTime();
     //uprava rasterizace vsech objektu
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
@@ -95,6 +103,114 @@ void MainWindow::decreaseDelay(){
         streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()-200);
         qDebug() << streetVector[DelaydedStreet]->getDelay();
     }
+}
+
+void MainWindow::increaseHour()
+{
+    int tmp = static_cast<int>(ui->hour->text().toDouble());
+    tmp ++;
+    if(tmp > 23){
+        tmp = 0;
+    }
+    if(tmp < 10){
+        ui->hour->setText("0"+QString::number(tmp));
+    }
+    else{
+        ui->hour->setText(QString::number(tmp));
+    }
+}
+
+void MainWindow::decreaseHour()
+{
+    int tmp = static_cast<int>(ui->hour->text().toDouble());
+    tmp --;
+    if(tmp < 0){
+        tmp = 23;
+    }
+    if(tmp < 10){
+        ui->hour->setText("0"+QString::number(tmp));
+    }
+    else{
+        ui->hour->setText(QString::number(tmp));
+    }
+}
+
+void MainWindow::increaseMinute()
+{
+    int tmp = static_cast<int>(ui->minute->text().toDouble());
+    tmp ++;
+    if(tmp > 59){
+        tmp = 0;
+    }
+    if(tmp < 10){
+        ui->minute->setText("0"+QString::number(tmp));
+    }
+    else{
+        ui->minute->setText(QString::number(tmp));
+    }
+}
+
+void MainWindow::decreaseMinute()
+{
+    int tmp = static_cast<int>(ui->minute->text().toDouble());
+    tmp --;
+    if(tmp < 0){
+        tmp = 59;
+    }
+    if(tmp < 10){
+        ui->minute->setText("0"+QString::number(tmp));
+    }
+    else{
+        ui->minute->setText(QString::number(tmp));
+    }
+}
+
+void MainWindow::increaseSecond()
+{
+    int tmp = static_cast<int>(ui->second->text().toDouble());
+    tmp ++;
+    if(tmp > 59){
+        tmp = 0;
+    }
+    if(tmp < 10){
+        ui->second->setText("0"+QString::number(tmp));
+    }
+    else{
+        ui->second->setText(QString::number(tmp));
+    }
+}
+
+void MainWindow::decreaseSecond()
+{
+    int tmp = static_cast<int>(ui->second->text().toDouble());
+    tmp --;
+    if(tmp < 0){
+        tmp = 59;
+    }
+    if(tmp < 10){
+        ui->second->setText("0"+QString::number(tmp));
+    }
+    else{
+        ui->second->setText(QString::number(tmp));
+    }
+}
+
+void MainWindow::setNewTime()
+{
+    QVector<Vehicle>:: iterator it;
+    for (it = vehicleVector.begin(); it != vehicleVector.end(); it++)
+    {
+        scene->removeItem((*it).getEllipse());
+        vehicleVector.erase(it);
+        if(vehicleVector.size()==0){
+            return;
+        }
+        it--;
+    }
+    seconds = static_cast<int>(ui->second->text().toDouble());
+    minutes = static_cast<int>(ui->minute->text().toDouble());
+    hours = static_cast<int>(ui->hour->text().toDouble());
+//    qDebug() << hours << minutes << seconds;
 }
 
 void MainWindow::setPaths(){
@@ -186,11 +302,34 @@ void MainWindow::StartTime()
     hours = local.time().hour();
     minutes = local.time().minute();
     seconds = local.time().second();
-
+    if(hours < 10){
+        ui->hour->setText("0"+QString::number(hours));
+    }
+    else{
+        ui->hour->setText(QString::number(hours));
+    }
+    if(minutes < 10){
+        ui->minute->setText("0"+QString::number(minutes));
+    }
+    else{
+        ui->minute->setText(QString::number(minutes));
+    }
+    if(seconds < 10){
+        ui->second->setText("0"+QString::number(seconds));
+    }
+    else{
+        ui->second->setText(QString::number(seconds));
+    }
     ui->time->setText(TimeSetter());
     ui->time->setAlignment(Qt::AlignCenter);
+    ui->hour->setAlignment(Qt::AlignCenter);
+    ui->minute->setAlignment(Qt::AlignCenter);
+    ui->second->setAlignment(Qt::AlignCenter);
     QFont Font("Courier New", 12);
     ui->time->setFont(Font);
+    ui->hour->setFont(Font);
+    ui->minute->setFont(Font);
+    ui->second->setFont(Font);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(TimeUpdate()));
     timer->start(50);
