@@ -171,6 +171,7 @@ void SceneEdit::setLinkInfo()
     this->uii.VehicleData->setText(output);
     this->uii.VehicleData->setAlignment(Qt::AlignCenter);
     this->uii.TimeTable->setFontWeight(3);
+    this->uii.TimeTable->clear();
 }
 
 void SceneEdit::resetStreets()
