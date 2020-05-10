@@ -9,8 +9,8 @@ Street::Street(QString name, Coordinate start, Coordinate end){
     this->end = end;
     this->name = name;
     this->line = new QGraphicsLineItem();
-    this->line->line().setLine(start.getX(), start.getY(), end.getX(), end.getY());
-    //scene->addLine(streetVector[i]->getStart().getX(),streetVector[i]->getStart().getY(),streetVector[i]->getEnd().getX(),streetVector[i]->getEnd().getY());
+    this->line->setLine(start.getX(), start.getY(), end.getX(), end.getY());
+    this->line->setPen();
 }
 
 Coordinate Street::getStart(){
