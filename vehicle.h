@@ -16,7 +16,7 @@ public:
     Vehicle(Coordinate position, double speed, Path path, int color);
     QGraphicsEllipseItem* getEllipse();
     void vehMove(Coordinate coordinate);
-    void vehUpdate();
+    void vehUpdate(int hours);
     bool direction = true; //promenna pro zpetnou cestu, pri false vime ze jede na zpatek
     Path getPath();
     double getDistance();
@@ -31,6 +31,7 @@ private:
     int stopWaiter = 0;
     QGraphicsEllipseItem *visual;
     int countWait = 0;
+    int EndPathWaiter = 0;
 
 
 };

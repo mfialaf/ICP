@@ -303,7 +303,7 @@ void MainWindow::TimeUpdate()
     }
     QVector<Vehicle>:: iterator it;
     for (it = vehicleVector.begin(); it != vehicleVector.end(); it++) {
-        it->vehUpdate();
+        it->vehUpdate(hours);
     }
 }
 

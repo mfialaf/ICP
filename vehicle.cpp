@@ -35,7 +35,8 @@ void Vehicle::vehMove(Coordinate coordinate){
     visual->setRect(coordinate.getX()-5, coordinate.getY()-5, 10, 10);
 }
 
-void Vehicle::vehUpdate(){
+void Vehicle::vehUpdate(int hours){
+    int WaitingTime = 0;
     if(path.stopSameAsPosition(position) && stopWaiter != 300 && countWait == 0){
         stopWaiter++;
         return;
@@ -49,13 +50,26 @@ void Vehicle::vehUpdate(){
     }
     Street* street = path.getStreetWithVehicle(distance, direction);
     distance+=speed/(200+street->getDelay());
-    if(distance > path.getPathValue())
+    if(distance >= path.getPathValue())
     {
-        distance = 0;
-        if(direction)
-            direction = false;
-        else
-            direction = true;
+        if(hours==23 || hours<6){
+            WaitingTime = 30*60*20;
+        }
+        else{
+            WaitingTime = path.pathGetInterval()*60*20;
+        }
+        if((EndPathWaiter < WaitingTime) && direction){
+            EndPathWaiter++;
+            return;
+        }
+        else{
+            distance = 0;
+            EndPathWaiter = 0;
+            if(direction)
+                direction = false;
+            else
+                direction = true;
+        }
     }
     Coordinate coords = path.getCoordinateByDistance(distance, direction);
     vehMove(coords);
