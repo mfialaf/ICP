@@ -6,18 +6,19 @@
 #include <QVector>
 #include <stop.h>
 #include <QGraphicsLineItem>
+#include <QDebug>
+#include <math.h>
+#include <QPen>
 
 class Street
 {
 public:
-
     Street();
     Street(QString name, Coordinate start, Coordinate end);
     Coordinate getStart();
     Coordinate getEnd();
     QString getName();
     void insertStop(Stop stop);
-    void writeList();
     void sortStops();
     double getDistanceFromStart(Coordinate coordinate);
     Stop getStopOnPosition(int position);

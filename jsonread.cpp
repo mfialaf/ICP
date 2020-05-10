@@ -1,14 +1,23 @@
 #include "jsonread.h"
+
+/**
+ * @brief JsonRead::JsonRead defaultní konstruktor
+ */
 JsonRead::JsonRead()
 {
 
 }
 
-/*
- * Funkce pro zpracovani vstupniho souboru
+/**
+ * @brief JsonRead::ReadJson Načte zastávky, ulice a linky ze vstupního souboru.
+ * @param stopVector Ukládací vektor pro zastávky.
+ * @param streetVector Ukládací vektor pro ulice.
+ * @param pathVector Ukládací vektor pro linky.
  */
 void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVector, QVector <Path>* pathVector)
 {
+    /// Vstupni data jsou ve formatu JSON file.
+    /// Data ukládá do ukazatelů na vektory definované v hlavní kostře mainwindow.cpp
 
 //    QDir dir = dir.currentPath();
 //    qDebug() << dir;
@@ -36,7 +45,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
     QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
     QJsonObject obj = doc.object();
 
-    // Streeet
+    /// Streeet: Cyklus načítající ulice.
     QJsonArray streetArray = obj["street"].toArray();
     for(int i = 0; i < streetArray.size(); i++)
     {
@@ -46,7 +55,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
         streetVector->append(new Street(NameV.toString(), Coordinate(getXorYfrom(streetAllO,"begin","x"),getXorYfrom(streetAllO,"begin","y")), Coordinate(getXorYfrom(streetAllO,"end","x"),getXorYfrom(streetAllO,"end","y"))));
     }
 
-    // Stop
+    /// Stop: Cyklus načítající zastávky.
     QJsonArray stopArray = obj["stop"].toArray();
     for(int i = 0; i < stopArray.size(); i++)
     {
@@ -55,13 +64,13 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
         stopVector->append(Stop(NameV.toString(), Coordinate(getXorYfrom(stopAllO,"position","x"), getXorYfrom(stopAllO,"position","y"))));
     }
 
-    // Path
+    /// Path: Cyklus načítající linky.
     QJsonArray pathArray = obj["path"].toArray();
     for(int i = 0; i < pathArray.size(); i++)
     {
          QJsonObject pathAllO= pathArray[i].toObject();
 
-         //Prevedeni seznamu ulic do vektoru
+         //Převedení seznamu ulic do vektoru
          QJsonArray streetNamsesArray = pathAllO["streetNames"].toArray();
          QVector<QString> streetNamesVector;
          for(int j = 0; j < streetNamsesArray.size(); j++)
@@ -69,7 +78,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
              streetNamesVector.append(streetNamsesArray[j].toString());
          }
 
-         //Ziskani sbylych promennych
+         //Získani zbylých proměnných
          QJsonValue interval = pathAllO.value(QString("interval"));
          QJsonValue linkName = pathAllO.value(QString("linkName"));
          QJsonValue speed = pathAllO.value(QString("speed"));
@@ -80,12 +89,15 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
 
 }
 
-/*
- * Funkce vracejici pozadovanou souradnici z daneho objektu
+/**
+ * @brief JsonRead::getXorYfrom Získá požadovanou souřadnici z daného Json objeku.
+ * @param Object Objekt ze kterého jsou souřadnice získávány.
+ * @param name Jméno pod kterým jsou souřadnice uloženy.
+ * @param XorY Znak x nebo y (malým písmenem!)
+ * @return Vrací získanou souřadnici.
  */
 double JsonRead::getXorYfrom(QJsonObject Object, QString name, QString XorY)
 {
-    //Zapis normalniho programatora
     QJsonValue value = Object.value(QString(name));
     QJsonObject Object2 = value.toObject();
     QJsonValue x = Object2.value(QString(XorY));

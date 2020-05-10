@@ -1,10 +1,16 @@
 #include "street.h"
-#include <QDebug>
-#include <math.h>
-#include <QPen>
 
+/**
+ * @brief Street::Street defaultní konstruktor
+ */
 Street::Street(){}
 
+/**
+ * @brief Street::Street konstruktor + nastavení barvy a šířky ulic
+ * @param name
+ * @param start
+ * @param end
+ */
 Street::Street(QString name, Coordinate start, Coordinate end){
     this->start = start;
     this->end = end;
@@ -14,25 +20,33 @@ Street::Street(QString name, Coordinate start, Coordinate end){
     this->line->setPen(QPen(QColor(Qt::black), 2));
 }
 
+/**
+ * @brief Street::getStart Vrátí počáteční souřadnice ulice.
+ * @return
+ */
 Coordinate Street::getStart(){
     return start;
 }
 
+/**
+ * @brief Street::getEnd Vrátí koncové souřadnice ulice.
+ * @return
+ */
 Coordinate Street::getEnd(){
     return end;
 }
 
+/**
+ * @brief Street::insertStop Vloží zastávku do dané ulice.
+ * @param stop vkládaná zastávka
+ */
 void Street::insertStop(Stop stop){
     stopList.append(stop);
 }
 
-void Street::writeList(){
-    qDebug() << name << ": ";
-    for(int i = 0; i<stopList.size(); i++){
-        qDebug() << stopList[i].getName();
-    }
-}
-
+/**
+ * @brief Street::sortStops Utřídí zastávky v dané ulici od nejbližší po nejvzdálenější (od počátku ulice).
+ */
 void Street::sortStops(){
     Stop tmp;
     int x=0;
@@ -58,25 +72,52 @@ void Street::sortStops(){
     }
 }
 
+/**
+ * @brief Street::getName
+ * @return Vrátí jméno ulice.
+ */
 QString Street::getName(){
     return name;
 }
 
+/**
+ * @brief Street::getDistanceFromStart Zjistí zdálenost zastávky od staru.
+ * @param coordinate Souřadnice o které chceme zjistit vzdálenost.
+ * @return zjištěná vzdálenost
+ */
 double Street::getDistanceFromStart(Coordinate coordinate){
     return sqrt( pow((start.getX() - coordinate.getX()),2) + pow((start.getY() - coordinate.getY()),2));
 }
 
+/**
+ * @brief Street::getStopOnPosition Zjistí zastávku daného pořadí.
+ * @param position pořadí
+ * @return Pozice zjištěné zastávky.
+ */
 Stop Street::getStopOnPosition(int position){
     return stopList[position];
 }
 
+/**
+ * @brief Street::getSizeOfStopList
+ * @return Vrátí počet zastávek na ulici.
+ */
 int Street::getSizeOfStopList(){
     return stopList.size();
 }
+
+/**
+ * @brief Street::getDelay
+ * @return Vrátí zpoždění na ulici.
+ */
 int Street::getDelay(){
     return delay;
 }
 
+/**
+ * @brief Street::setDelay Nastaví zpoždění na ulici.
+ * @param delay dané zpoždění
+ */
 void Street::setDelay(int delay)
 {
     this->delay = delay;
