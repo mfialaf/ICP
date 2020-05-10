@@ -125,6 +125,8 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
             if(*PositionOfDelaydedstreet == i){
                 streetVector[i]->line->setPen(QPen(QColor(Qt::black),2));
                 *PositionOfDelaydedstreet = -1;
+                uii.streetName->setText("");
+                uii.printDelay->setText("");
             }
             else{
                 if(*PositionOfDelaydedstreet != -1)
@@ -132,6 +134,15 @@ void SceneEdit::getStreet(QGraphicsLineItem* street){
                     streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
                 }
                 streetVector[i]->line->setPen(QPen(QColor(Qt::red),2));
+                uii.streetName->setAlignment(Qt::AlignCenter);
+                uii.printDelay->setAlignment(Qt::AlignCenter);
+                uii.streetName->setText(streetVector[i]->getName());
+                int delay = streetVector[i]->getDelay();
+                delay = delay/200;
+                if(delay>100){
+                    delay = 100;
+                }
+                uii.printDelay->setText("Delay is on: "+QString::number(delay)+"%");
                 *PositionOfDelaydedstreet = i;
             }
             return;
@@ -145,6 +156,8 @@ void SceneEdit::resetMarkedLine()
     {
         streetVector[*PositionOfDelaydedstreet]->line->setPen(QPen(QColor(Qt::black),2));
         *PositionOfDelaydedstreet = -1;
+        uii.streetName->setText("");
+        uii.printDelay->setText("");
     }
 }
 

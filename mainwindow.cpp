@@ -77,7 +77,12 @@ void MainWindow::resetDelay(){
     }
     else{
         streetVector[DelaydedStreet]->setDelay(0);
-        //qDebug() << streetVector[DelaydedStreet]->getDelay();
+        int delay = streetVector[DelaydedStreet]->getDelay();
+        delay = delay/200;
+        if(delay>100){
+            delay = 100;
+        }
+        ui->printDelay->setText("Delay is on: "+QString::number(delay)+"%");
     }
 }
 
@@ -88,7 +93,12 @@ void MainWindow::increaseDelay(){
     }
     else{
         streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()+200);
-        //qDebug() << streetVector[DelaydedStreet]->getDelay();
+        int delay = streetVector[DelaydedStreet]->getDelay();
+        delay = delay/200;
+        if(delay>100){
+            delay = 100;
+        }
+        ui->printDelay->setText("Delay is on: "+QString::number(delay)+"%");
     }
 }
 
@@ -100,8 +110,16 @@ void MainWindow::decreaseDelay(){
         return;
     }
     else{
+        if(streetVector[DelaydedStreet]->getDelay() > 20000){
+            streetVector[DelaydedStreet]->setDelay(20000);
+        }
         streetVector[DelaydedStreet]->setDelay(streetVector[DelaydedStreet]->getDelay()-200);
-        //qDebug() << streetVector[DelaydedStreet]->getDelay();
+        int delay = streetVector[DelaydedStreet]->getDelay();
+        delay = delay/200;
+        if(delay>100){
+            delay = 100;
+        }
+        ui->printDelay->setText("Delay is on: "+QString::number(delay)+"%");
     }
 }
 
