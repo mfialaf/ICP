@@ -1,11 +1,3 @@
-/** @brief Imitace dopravních spojů.
-
-    Semestrální projekt - aplikace pro zobrazení linek hromadné dopravy a sledování jejich pohybu.
-    @authors Daniel Kamenický xkamen21 & Marek Fiala xfiala60
-    @date Květen 2020
-    @sub ICP Seminář C++
-*/
-
 #include "stop.h"
 /**
  * @brief Stop::Stop defaultní konstruktor

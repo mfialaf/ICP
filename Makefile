@@ -352,6 +352,9 @@ clean: compiler_clean
 run: mhd_projekt
 	./mhd_projekt
 
+doxygen: Doxyfile
+	doxygen Doxyfile
+
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
