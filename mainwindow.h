@@ -4,6 +4,14 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QMap>
+#include <QDebug>
+#include <QtWidgets>
+#include <QRect>
+#include <coordinate.h>
+#include <QGraphicsItem>
+#include <jsonread.h>
+#include <sceneedit.h>
+#include <QDateTime>
 #include <street.h>
 #include <QGraphicsScene>
 #include <street.h>

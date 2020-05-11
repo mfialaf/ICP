@@ -199,6 +199,7 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
     for(auto* item: items(event->scenePos()) )
     {
         auto vehicle =  dynamic_cast<QGraphicsEllipseItem*>(item);
+        auto street = dynamic_cast<QGraphicsLineItem*>(item);
         if ( vehicle != nullptr)
         {
             resetStreets();
@@ -208,7 +209,7 @@ void SceneEdit::mousePressEvent(QGraphicsSceneMouseEvent *event)
             uii.VehicleData->setAlignment(Qt::AlignCenter);
             return;
         }
-        else if(auto street = dynamic_cast<QGraphicsLineItem*>(item); street != nullptr)
+        else if(street != nullptr)
         {
             resetStreets();
             setLinkInfo();

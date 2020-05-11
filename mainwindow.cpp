@@ -8,14 +8,6 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
-#include <QtWidgets>
-#include <QRect>
-#include <coordinate.h>
-#include <QGraphicsItem>
-#include <jsonread.h>
-#include <sceneedit.h>
-#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

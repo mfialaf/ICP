@@ -17,6 +17,22 @@ Path::Path()
 }
 
 /**
+ * @brief Path::Path konstruktor
+ * @param streetNames
+ * @param speed
+ * @param pathNumber
+ * @param interval
+ * @param color
+ */
+Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval, int color){
+    this->streetNames = streetNames;
+    this->speed = speed;
+    this->pathNumber = pathNumber;
+    this->interval = interval;
+    this->color = color;
+}
+
+/**
  * @brief Path::Path konstrukor
  * @param pathList list souřadnic cesty
  */
@@ -99,39 +115,55 @@ Street* Path::getStreetWithVehicle(double distance,bool direction)
 /// Pomocí ujeté vzdálenosti
 ///
 
+/**
+ * @brief Path::getStreetList
+ * @return Vrátí ukazatel na ulice dané linky.
+ */
 QVector<Street *> Path::getStreetList()
 {
     return streetList;
 }
 
+/**
+ * @brief Path::pathGetLinkName
+ * @return Vrátí číslo linky.
+ */
 int Path::pathGetLinkName()
 {
     return pathNumber;
 }
 
-Path::Path(QVector<QString> streetNames, double speed, double pathNumber, double interval, int color){
-    this->streetNames = streetNames;
-    this->speed = speed;
-    this->pathNumber = pathNumber;
-    this->interval = interval;
-    this->color = color;
-}
-
+/**
+ * @brief Path::getDistanceOfCoordinates
+ * @param a souřadnice
+ * @param b souřadnice
+ * @return Vrátí vzdálenost dvou souřadnic.
+ */
 double Path::getDistanceOfCoordinates(Coordinate a, Coordinate b)
 {
     return sqrt( pow((a.getX() - b.getX()),2) + pow((a.getY() - b.getY()),2));
 }
 
+/**
+ * @brief Path::stopSameAsPosition
+ * @param coordinate souřadnice zastávky
+ * @return Vrátí true pokud je vozidlo na zastávce.
+ */
 bool Path::stopSameAsPosition(Coordinate coordinate){
     for(int i = 0; i<stopList.size(); i++){
         if(qRound(coordinate.getX()) == qRound(stopList[i].getPosition().getX()) && qRound(coordinate.getY()) == qRound(stopList[i].getPosition().getY())){
             return true;
-
         }
     }
     return false;
 }
 
+/**
+ * @brief Path::getCoordinateByDistance
+ * @param distance
+ * @param direction
+ * @return
+ */
 Coordinate Path::getCoordinateByDistance(double distance, bool direction)
 {
     bool flag = true;
@@ -186,6 +218,10 @@ Coordinate Path::getCoordinateByDistance(double distance, bool direction)
     return Coordinate(a.getX() + (b.getX() - a.getX()) * driven, a.getY() + (b.getY() - a.getY()) * driven);
 }
 
+/**
+ * @brief Path::getPathValue
+ * @return
+ */
 double Path::getPathValue()
 {
     Coordinate a,b;
@@ -201,6 +237,10 @@ double Path::getPathValue()
     return size;
 }
 
+/**
+ * @brief Path::setStreetsAndStops Nastaví ulice i se zastávlami
+ * @param streetVector ukazatel na ulice
+ */
 void Path::setStreetsAndStops(QVector<Street*> streetVector){
     int justFirstStartAddedFlag = 1;
     for(int i = 0; i<streetNames.size(); i++){

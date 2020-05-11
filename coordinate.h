@@ -1,19 +1,6 @@
 #ifndef COORDINATE_H
 #define COORDINATE_H
 
-//#include <QObject>
-//#include <QWidget>
-/*
-struct Coordinates{
-    double x;
-    double y;
-    Coordinates(){
-        x=0.0;
-        y=0.0;
-    }
-
-};*/
-
 class Coordinate
 {
 //    Q_OBJECT
