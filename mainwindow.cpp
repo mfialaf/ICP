@@ -51,6 +51,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+/**
+ * @brief MainWindow::AddingStopIntoStreet Přidá do mapy zastávky.
+ */
 void MainWindow::AddingStopIntoStreet(){
     double m;
     double x;
@@ -71,6 +74,9 @@ void MainWindow::AddingStopIntoStreet(){
     }
 }
 
+/**
+ * @brief MainWindow::resetDelay Veresetuje zpoždění
+ */
 void MainWindow::resetDelay(){
     if(DelaydedStreet == -1){
         return;
@@ -86,6 +92,9 @@ void MainWindow::resetDelay(){
     }
 }
 
+/**
+ * @brief MainWindow::increaseDelay Zvýší zpoždění.
+ */
 void MainWindow::increaseDelay(){
 
     if(DelaydedStreet == -1){
@@ -102,6 +111,10 @@ void MainWindow::increaseDelay(){
     }
 }
 
+
+/**
+ * @brief MainWindow::decreaseDelay Sníží zpoždění.
+ */
 void MainWindow::decreaseDelay(){
     if(DelaydedStreet == -1){
         return;
@@ -123,6 +136,9 @@ void MainWindow::decreaseDelay(){
     }
 }
 
+/**
+ * @brief MainWindow::increaseHour Zváší hodiny o jedna.
+ */
 void MainWindow::increaseHour()
 {
     int tmp = static_cast<int>(ui->hour->text().toDouble());
@@ -138,6 +154,9 @@ void MainWindow::increaseHour()
     }
 }
 
+/**
+ * @brief MainWindow::decreaseHour Sníží hodiny o jedna.
+ */
 void MainWindow::decreaseHour()
 {
     int tmp = static_cast<int>(ui->hour->text().toDouble());
@@ -153,6 +172,9 @@ void MainWindow::decreaseHour()
     }
 }
 
+/**
+ * @brief MainWindow::increaseMinute Zvýší minuty o jedna.
+ */
 void MainWindow::increaseMinute()
 {
     int tmp = static_cast<int>(ui->minute->text().toDouble());
@@ -168,6 +190,9 @@ void MainWindow::increaseMinute()
     }
 }
 
+/**
+ * @brief MainWindow::decreaseMinute Sníží minuty o jedna.
+ */
 void MainWindow::decreaseMinute()
 {
     int tmp = static_cast<int>(ui->minute->text().toDouble());
@@ -183,6 +208,9 @@ void MainWindow::decreaseMinute()
     }
 }
 
+/**
+ * @brief MainWindow::increaseSecond Zvýší minuty o jedna.
+ */
 void MainWindow::increaseSecond()
 {
     int tmp = static_cast<int>(ui->second->text().toDouble());
@@ -198,7 +226,9 @@ void MainWindow::increaseSecond()
     }
 }
 
-
+/**
+ * @brief MainWindow::decreaseSecond Sníží minuty o jedna.
+ */
 void MainWindow::decreaseSecond()
 {
     int tmp = static_cast<int>(ui->second->text().toDouble());
@@ -214,6 +244,9 @@ void MainWindow::decreaseSecond()
     }
 }
 
+/**
+ * @brief MainWindow::setNewTime Nastaví čas podle zvoleného časovače v GUI.
+ */
 void MainWindow::setNewTime()
 {
     this->seconds = (static_cast<int>(ui->second->text().toDouble())-1);
@@ -232,6 +265,9 @@ void MainWindow::setNewTime()
     }
 }
 
+/**
+ * @brief MainWindow::setPaths Nastaví linkám ulice po kterých pojedou.
+ */
 void MainWindow::setPaths(){
     for(int i=0; i<pathVector.size(); i++){
         pathVector[i].setStreetsAndStops(streetVector);
@@ -250,6 +286,9 @@ void MainWindow::setScene(QVector<Street*> streetVector) //klomen
     }
 }
 
+/**
+ * @brief MainWindow::startVehicle
+ */
 void MainWindow::startVehicle()
 {
     QVector<Path>::iterator it1;
@@ -286,11 +325,17 @@ void MainWindow::startVehicle()
     }
 }
 
+/**
+ * @brief MainWindow::~MainWindow destruktor
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief MainWindow::TimeUpdate Aktualizuje čas.
+ */
 void MainWindow::TimeUpdate()
 {
     if(timeupdate == 20){
@@ -307,13 +352,19 @@ void MainWindow::TimeUpdate()
     }
 }
 
-
+/**
+ * @brief MainWindow::timeChanged
+ * @param val
+ */
 void MainWindow::timeChanged(int val)
 {
     timer->stop();
     timer->start(50/val);
 }
 
+/**
+ * @brief MainWindow::StartTime Počáteční nastavení času.
+ */
 void MainWindow::StartTime()
 {
     QDateTime UTC(QDateTime::currentDateTimeUtc());
@@ -354,6 +405,10 @@ void MainWindow::StartTime()
     timer->start(50);
 }
 
+/**
+ * @brief MainWindow::TimeSetter nastaví čas
+ * @return
+ */
 QString MainWindow::TimeSetter(){
     if(seconds == 59)
     {
@@ -403,6 +458,10 @@ QString MainWindow::TimeSetter(){
     return time;
 }
 
+/**
+ * @brief MainWindow::zoom Metoda starající se o přiblížení.
+ * @param val parametr přiblížení.
+ */
 void MainWindow::zoom(int val)
 {
     auto originalMatice =  ui->graphicsView->transform(); //vrati transformaci matice

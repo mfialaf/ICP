@@ -11,11 +11,21 @@
 
 //Vehicle v konecne zastavce bude cekat dobu, ktera odpovida intervalu. Do vehicle pridat timer ktery bude zvysovat velikost pri tiku hodin, pri naplneni anulovat a vyslat zpet.
 
+/**
+ * @brief Vehicle::Vehicle konstruktor
+ */
 Vehicle::Vehicle()
 {
 
 }
 
+/**
+ * @brief Vehicle::Vehicle konstruktor
+ * @param position
+ * @param speed
+ * @param path
+ * @param color
+ */
 Vehicle::Vehicle(Coordinate position, double speed, Path path, int color)
 {
     if(speed>90)
@@ -31,18 +41,34 @@ Vehicle::Vehicle(Coordinate position, double speed, Path path, int color)
     this->visual->setBrush(QBrush(QColor(color)));
 }
 
+/**
+ * @brief Vehicle::getDistance
+ * @return Vrátí ujetou vzdálenost auta
+ */
 double Vehicle::getDistance(){
     return distance;
 }
 
+/**
+ * @brief Vehicle::getEllipse
+ * @return vrátí ukazatel na vozidlo (typu QGraphicsEllipseItem*)
+ */
 QGraphicsEllipseItem* Vehicle::getEllipse(){
     return visual;
 }
 
+/**
+ * @brief Vehicle::vehMove Nastaví pozici vozidla na danou pozici
+ * @param coordinate souřadnice nastavovaného místa
+ */
 void Vehicle::vehMove(Coordinate coordinate){
     visual->setRect(coordinate.getX()-5, coordinate.getY()-5, 10, 10);
 }
 
+/**
+ * @brief Vehicle::vehUpdate Zaopatřuje pohyb vozidla v čase.
+ * @param hours
+ */
 void Vehicle::vehUpdate(int hours){
     int WaitingTime = 0;
     if(path.stopSameAsPosition(position) && stopWaiter != 300 && countWait == 0){
@@ -84,11 +110,19 @@ void Vehicle::vehUpdate(int hours){
     position = coords;
 }
 
+/**
+ * @brief Vehicle::getPath
+ * @return Vrátí linku vozidla.
+ */
 Path Vehicle::getPath()
 {
     return path;
 }
 
+/**
+ * @brief Vehicle::isAtStart
+ * @return Vrátí true pokud je vozidlo na staru linky.
+ */
 bool Vehicle::isAtStart()
 {
     //   (qRound(position.getX()) == qRound(path.pathGetStart().getX()) && qRound(position.getY()) == qRound(path.pathGetStart().getY()))
@@ -99,6 +133,12 @@ bool Vehicle::isAtStart()
     return false;
 }
 
+/**
+ * @brief Vehicle::compareWithTollerance Pomocná funkce porovnávající 2 čísla s určitou tolerancí.
+ * @param a číslo
+ * @param b číslo
+ * @return Vrátí true pokud jsou shodné (s danou tolerancí)
+ */
 bool Vehicle::compareWithTollerance(double a, double b)
 {
     auto diff = a - b;

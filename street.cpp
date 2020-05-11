@@ -131,6 +131,10 @@ void Street::setDelay(int delay)
     this->delay = delay;
 }
 
+/**
+ * @brief Street::getStreetAsQraphicsLine
+ * @return vrátí ukazatel  na ulici (typ QGraphicsLineItem* )
+ */
 QGraphicsLineItem *Street::getStreetAsQraphicsLine()
 {
     return line;
