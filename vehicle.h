@@ -1,3 +1,10 @@
+/**
+  * @file vehicle.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu vehicle.cpp
+  */
+
 #include <coordinate.h>
 #include <path.h>
 #include <QGraphicsEllipseItem>

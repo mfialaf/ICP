@@ -1,3 +1,10 @@
+/**
+  * @file street.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu street.cpp
+  */
+
 #ifndef STREET_H
 #define STREET_H
 

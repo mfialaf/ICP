@@ -1,3 +1,10 @@
+/**
+  * @file mainwindow.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavní kostra programu.
+  */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

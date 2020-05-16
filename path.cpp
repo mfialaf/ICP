@@ -1,3 +1,10 @@
+/**
+  * @file path.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Modul zpracovávající data linek.
+  */
+
 #include "path.h"
 
 /**

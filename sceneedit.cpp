@@ -1,3 +1,10 @@
+/**
+  * @file sceneedit.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Modul zpracovávající interaktivní zásah do scény - zvýraznění linky.
+  */
+
 #include "sceneedit.h"
 
 /**

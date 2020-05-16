@@ -1,3 +1,10 @@
+/**
+  * @file vehicle.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Modul zpracovávající data vozidel.
+  */
+
 #include "vehicle.h"
 #include <cstdlib>
 

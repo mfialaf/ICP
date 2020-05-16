@@ -1,3 +1,9 @@
+/**
+  * @file mainwindow.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu mainwindow.cpp
+  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

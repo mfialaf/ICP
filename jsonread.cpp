@@ -1,3 +1,9 @@
+/**
+  * @file jsonread.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Modul zpracovávající vstupní data ze souboru JSON.
+  */
 #include "jsonread.h"
 
 /**

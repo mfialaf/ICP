@@ -1,3 +1,10 @@
+/**
+  * @file street.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Modul zpracovávající data ulic.
+  */
+
 #include "street.h"
 
 /**

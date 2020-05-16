@@ -1,3 +1,10 @@
+/**
+  * @file stop.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu stop.cpp
+  */
+
 #ifndef STOP_H
 #define STOP_H
 

@@ -1,3 +1,10 @@
+/**
+  * @file path.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu path.cpp
+  */
+
 #ifndef PATH_H
 #define PATH_H
 

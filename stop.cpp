@@ -1,3 +1,10 @@
+/**
+  * @file stop.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Modul zpracovávající data zastávek.
+  */
+
 #include "stop.h"
 /**
  * @brief Stop::Stop defaultní konstruktor

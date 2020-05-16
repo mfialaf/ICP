@@ -1,3 +1,9 @@
+/**
+  * @file jsonread.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu jsonread.cpp
+  */
 #ifndef JSONREAD_H
 #define JSONREAD_H
 

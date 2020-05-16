@@ -1,3 +1,9 @@
+/**
+  * @file coordinate.h
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Hlavičkový modul k modulu coordinate.cpp
+  */
 #ifndef COORDINATE_H
 #define COORDINATE_H
 

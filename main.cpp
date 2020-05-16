@@ -1,3 +1,10 @@
+/**
+  * @file  main.cpp
+  * @authors Daniel Kamenický xkamen21
+  * <br/>Marek Fiala xfiala60
+  * @details Spouštění programu.
+  */
+
 /*! \mainpage Dokumentace k semestrálnímu projektu
  *
  * \section Předmět Seminář C++
