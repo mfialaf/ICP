@@ -38,7 +38,7 @@ void JsonRead::ReadJson(QVector<Stop>* stopVector, QVector<Street*>* streetVecto
     srand ( time(NULL) );
     QString val;
     QFile file;
-    file.setFileName("../inputFile.json");
+    file.setFileName("../examples/inputFile.json");
     if (!file.exists())
     {
         qDebug() << "Vstupni soubor se neporadilo otevrit";
