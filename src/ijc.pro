@@ -40,7 +40,7 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    mhd_projekt_cs_CZ.ts
+    ijc_cs_CZ.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
